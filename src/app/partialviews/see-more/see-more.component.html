@@ -1,0 +1,12 @@
+<span>
+    {{text | maxLengthTextGetPipe : maxLength}}
+    <a *ngIf="text && text?.length>maxLength" href="JavaScript:void(0);" (click)="onContextMenu($event, element, text)"
+        style="font-size: 10px;">
+        <i class="fa fa-info-circle" aria-hidden="true"></i>
+    </a>
+</span>
+<context-menu #basicRightMenu1 [menuClass]="'mystyletooltip'">
+    <ng-template contextMenuItem>
+        {{ItemEffected }}
+    </ng-template>
+</context-menu>

@@ -1,0 +1,122 @@
+// src/app/comp-a/comp-a.theme.scss
+@import '~@angular/material/theming';
+@import "./styles/variables.module.scss";
+@mixin customOutlineInputcreate($theme) {
+    // define mixin
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent); // retrieve color def
+    //OutlinedInput
+    mat-form-field {
+        
+        //width: 300px;
+        // background-color: mat-color($primary) !important;
+        // color: mat-color($primary, 50) !important;
+        //border-color: mat-color($primary, A400);
+        font-Size: '14px';
+        font-weight: '400';
+        border-Color: $input-border-color !important;
+        background-Color: 'white !important';
+        // .mat-form-field-outline{
+        // border: 1px solid $input-border-color;
+        // border-radius: $input-radius;
+        // }
+        //new added
+        .mat-form-field-infix{    
+            // border-bottom: 1px solid $input-border-color;       
+            padding: 0.5em 0 0.6em 0 !important;
+            margin-top: -0.0625em !important; 
+            margin-bottom: 0.5rem !important;
+          
+        }
+        //new added end
+        &:hover .MuiOutlinedInput-notchedOutline {
+            border-Color: $input-border-color;
+        }
+        &.Mui-focused .MuiOutlinedInput-notchedOutline {
+            border-width: '1px';
+            border-color: mat-color($primary, 500) !important;
+        }
+        &.Mui-focused .MuiInputAdornment-root {
+            color: mat-color($primary, 500),
+        }
+        input {
+            position: 'relative';
+            order: '1';
+            height: '40px';
+            width: calc(100% - 26px);
+            box-Sizing: 'border-box';
+            padding-Top: '0';
+            padding-Bottom: '0';
+            color: $dark-color-500!important;
+            & :-internal-autofill-selected {
+                color: $input-text-color !important;
+            }
+        }
+        inputAdornedStart {
+            padding-Left: '8px';
+        }
+        MuiInputAdornment {
+            position: 'relative';
+            left: '10px';
+            color: darkColor300;
+        }
+        MuiInputLabel {
+            outlined {
+                transform: 'translate(40px, 12px) scale(1)';
+                color: $dark-color-300;
+                & .MuiInputLabel-shrink {
+                    transform: 'translate(14px, -6px) scale(0.85)' !important;
+                }
+                & input[for="combo-box-demo"] {
+                    transform: 'translate(12px, 12px) scale(1)';
+                }
+            }
+            &.Mui-focused {
+                color: $dark-color-300;
+            }
+        }
+        MuiFormControlLabel {
+            label: {
+                fontSize: '14px',
+            }
+        }
+        // &.mat-accent {
+        //     background-color: mat-color($accent) !important;
+        //     color: mat-color($accent, 50) !important;
+        // }
+        // &.mat-primary {
+        //     background-color: mat-color($primary) !important;
+        //     color: mat-color($primary, 50) !important;
+        // }
+        // &.mat-stroked-button {
+        //     background-color: red !important;
+        //     color: yellow !important;
+        // }
+        // &.mat-raised-button {
+        //     background-color: red !important;
+        //     color: yellow !important;
+        // }
+        // &.mat-flat-button {
+        //     background-color: silver !important;
+        //     color: gold !important;
+        // }
+        // &.mat-stroked-button {
+        //     &:hover {
+        //         color: white !important;
+        //         background-color: black !important;
+        //     }
+        // }
+        // &.mat-icon-button {
+        //     background-color: red !important;
+        //     color: yellow !important;
+        // }
+        // &.mat-fab {
+        //     background-color: pink !important;
+        //     color: black!important;
+        // }
+        // &.mat-mini-fab {
+        //     background-color: red !important;
+        //     color: yellow !important;
+        // }
+    }
+}

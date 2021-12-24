@@ -1,0 +1,73 @@
+<mat-toolbar>
+    <button mat-icon-button class="example-icon" (click)="ExpandMenu()" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>Tritex</span>
+    <span class="example-spacer"></span>
+
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+        <mat-icon>notifications</mat-icon>        
+      </button>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" [matMenuTriggerFor]="ProfileMenu">
+        <mat-icon class="CustomIcon">
+         <span>{{utilityProvider.getShortName(UserName)}}</span>
+        </mat-icon>
+      </button>
+
+
+</mat-toolbar>
+
+<mat-drawer-container class="example-container mat-typography" [ngClass]="isExpanded?'MaxMenu':'MinMenu'" autosize>
+    <mat-drawer #drawer mode="side" disableClose="true" opened="true">
+        <mat-nav-list>
+            <mat-list-item>
+                <mat-icon mat-list-icon>dashboard</mat-icon>
+                <h4 mat-line *ngIf="isExpanded">dashboard</h4>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon mat-list-icon>pie_chart</mat-icon>
+                <h4 mat-line *ngIf="isExpanded">AnalyseFast</h4>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon mat-list-icon>layers</mat-icon>
+                <h4 mat-line *ngIf="isExpanded">DealFast</h4>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon mat-list-icon>compare_arrows</mat-icon>
+                <h4 mat-line *ngIf="isExpanded">BCE</h4>
+            </mat-list-item>
+
+
+        </mat-nav-list>
+    </mat-drawer>
+    <div class="example-sidenav-content">
+        <mat-sidenav-container style="min-height: calc(100vh - 80px)">
+            <router-outlet>
+
+            </router-outlet>
+
+        </mat-sidenav-container>
+        <footer class="page-footer">
+            <!-- Copyright -->
+            <div class="footer-copyright">© 2020 Copyright:
+                <a href="https://mdbootstrap.com/"> Tritexsolutions.com</a>
+            </div>
+            <!-- Copyright -->
+        </footer>
+    </div>
+</mat-drawer-container>
+
+<mat-menu #ProfileMenu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>account_circle</mat-icon>
+      <span>Profile</span>
+    </button>
+    <button mat-menu-item>
+        <mat-icon>vpn_key</mat-icon>
+        <span>Change Password</span>
+      </button>
+    <button mat-menu-item (click)="LogOut()">
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Log Out</span>
+    </button>
+</mat-menu>

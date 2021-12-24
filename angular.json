@@ -28,7 +28,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/scss/styles.scss",
+              "src/scss/theme.scss"
             ],
             "scripts": []
           },
@@ -92,8 +93,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
-            ],
+              "src/scss/styles.scss",
+              ],
             "scripts": []
           }
         },
@@ -123,6 +124,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "connectedplatform"
+    }
+  },
+  "defaultProject": "connectedplatform",
+  "cli": {
+    "analytics": false
+  }
 }

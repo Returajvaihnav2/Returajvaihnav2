@@ -1,0 +1,50 @@
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.example-container {
+    width: 100%;
+    min-height: 93.3%;
+    .mat-drawer {
+        padding: 0px;
+    }
+}
+
+mat-drawer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.page-footer {
+    width: 100%;
+    .footer-copyright {
+        text-align: center;
+    }
+}
+
+.CustomIcon {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    left: 0px;
+    top: 0px;
+    /* Brand-blue/50 */
+    background: #DFDEF4;
+    border-radius: 50%;
+    span {
+        position: absolute;
+        width: 20px;
+        height: 19px;
+        left: 10px;
+        top: 10px;
+        font-family: Open Sans;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 19px;
+        /* identical to box height */
+        /* Brand-blue/500 */
+        color: #2D2A81;
+    }
+}

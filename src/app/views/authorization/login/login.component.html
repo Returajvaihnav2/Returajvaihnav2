@@ -1,0 +1,140 @@
+<!-- <mat-sidenav-container style="height: calc(100vh - 20px)">
+    <div class="forget-password" [ngStyle]="{'background-image': ''}">
+        <div class="login-cusom-form">
+            <mat-card class="mat-card">
+                <form [formGroup]="loginForm" class="form">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-card-header class="mat-card-header">
+                                <mat-card-title class="mat-card-title">
+                                    <div>
+                                        <img class="ng-star-inserted" [src]="logo">
+                                    </div>
+                                </mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content class="mat-card-content">
+                                <div class="row">
+                                    <div class="col-md-12 emptyBox">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <mat-form-field class="full-width">
+                                            <input matInput id="userName" name="userName" formControlName="userName" type="text" lowercasedirective>
+                                            <mat-placeholder>Username*
+                                            </mat-placeholder>
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>User Name</mat-label>
+                                            <input matInput placeholder="userName" matInput id="userName" name="userName" formControlName="userName" type="text" lowercasedirective>
+                                        </mat-form-field>
+                                     </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <mat-form-field class="full-width">
+                                            <input *ngIf="viewPasswordData" matInput id="password" name="password" formControlName="password" type="text">
+                                            <input *ngIf="!viewPasswordData" matInput id="password" name="password" formControlName="password" type="password">
+                                            <mat-placeholder>Password*
+                                            </mat-placeholder>
+                                            <i [class]="viewPasswordData ? 'fa fa-eye fa-lg mt-4 eye-icon': 'fa fa-eye-slash fa-lg mt-4 eye-icon'" (click)="viewPassword()"></i>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="form-footer-sec">
+                                    <button mat-stroked-button color="primary">Login </button>
+                                </div>
+                                <a href="javascript:void(0)" routerLinkActive="router-link-active">Forgot
+                          Password</a>
+                            </mat-card-content>
+                        </div>
+                    </div>
+                </form>
+            </mat-card>
+        </div>
+    </div>
+</mat-sidenav-container> -->
+
+<mat-sidenav-container style="height: calc(100vh - 20px)" [ngStyle]="{'background-image': getUrl()}">
+    <div class="forget-password custom__login" >
+        <div class="login-cusom-form">
+            <mat-card class="mat-card">
+                <form [formGroup]="loginForm" class="form" >
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-card-header class="mat-card-header">
+                                <mat-card-title class="mat-card-title">
+                                    <div>
+                                        <img class="logo ng-star-inserted"  [src]="logo">
+                                    </div>
+                                </mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content class="mat-card-content">
+                                <div class="row">
+                                    <div class="col-md-12 emptyBox" *ngIf="isTritexDomain()">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <!-- <mat-form-field class="full-width">
+                                            <input matInput id="userName" name="userName" formControlName="userName" type="text" lowercasedirective>
+                                            <mat-placeholder>Username*
+                                            </mat-placeholder>
+                                        </mat-form-field> -->
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>User Name</mat-label>
+                                            <input matInput matInput id="userName" name="userName" formControlName="userName" type="text" lowercasedirective>
+                                            <mat-icon matSuffix>account_circle</mat-icon>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <!-- <mat-form-field class="full-width">
+                                            <input *ngIf="viewPasswordData" matInput id="password" name="password" formControlName="password" type="text">
+                                            <input *ngIf="!viewPasswordData" matInput id="password" name="password" formControlName="password" type="password">
+                                            <mat-placeholder>Password*
+                                            </mat-placeholder>
+                                           <i [class]="viewPasswordData ? 'fa fa-eye fa-lg mt-4 eye-icon': 'fa fa-eye-slash fa-lg mt-4 eye-icon'" (click)="viewPassword()"></i>
+                                        </mat-form-field> -->
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Password</mat-label>
+                                            <input matInput id="password" name="password" formControlName="password" [type]="viewPasswordData?'text':'password'">  
+                                            <mat-icon (click)="viewPassword()" matSuffix>{{!viewPasswordData ? 'visibility_off' : 'visibility'}}</mat-icon>                                         
+                                            <!-- <button mat-icon-button matSuffix (click)="viewPassword()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                                <mat-icon>{{!viewPasswordData ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                              </button> -->
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="form-footer-sec">
+                                <button mat-stroked-button color="primary" (click)="submit()" [disabled]="!loginForm.valid">Login </button>
+                                <a (click)="forgotPassword()" href="javascript:void(0)" routerLinkActive="router-link-active" class="forgot-link">Forgot
+                                                        Password</a>
+                                </div>
+                            </mat-card-content>
+                            </div>
+                        </div>
+                </form>
+
+                <div *ngIf="!isTritexDomain()">
+                    <div class="center-logo-place-cust">
+                        <h3 class="powered-by">
+                            Powered By
+                        </h3>
+                        <img style="height: 100px;" src="../../../../../assets/img/viewer-logo.png">
+                    </div>
+                </div>
+            </mat-card>
+           </div>
+    </div>
+</mat-sidenav-container>

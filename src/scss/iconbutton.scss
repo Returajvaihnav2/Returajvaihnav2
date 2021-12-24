@@ -1,0 +1,64 @@
+// src/app/comp-a/comp-a.theme.scss
+@import '~@angular/material/theming';
+@mixin customIconButtoncreate($theme) {
+    // define mixin
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent); // retrieve color def
+    iconbutton {
+        background-color: mat-color($primary) !important;
+        color: mat-color($primary, 50) !important;
+        border-color: mat-color($primary, A400);
+        min-height: '40px';
+        font-size: '12px';
+        font-weight: '700';
+        letter-spacing: '0.4px';
+        &.mat-accent {
+            background-color: mat-color($accent) !important;
+            color: mat-color($accent, 50) !important;
+        }
+        &.mat-primary {
+            background-color: mat-color($primary) !important;
+            color: mat-color($primary, 50) !important;
+        }
+        &.mat-stroked-button {
+            &:hover {
+                color: white !important;
+                background-color: black !important;
+            }
+        }
+        &.mat-raised-button {
+            &:hover {
+                color: white !important;
+                background-color: black !important;
+            }
+        }
+        &.mat-flat-button {
+            background-color: silver !important;
+            color: gold !important;
+        }
+        &.mat-stroked-button {
+            &:hover {
+                color: white !important;
+                background-color: black !important;
+            }
+        }
+        &.mat-icon-button {
+            &:hover {
+                color: white !important;
+                background-color: black !important;
+            }
+        }
+        &.mat-fab {
+            &:hover {
+                color: white !important;
+                background-color: black !important;
+            }
+        }
+        &.mat-mini-fab {
+            &:hover {
+                color: white !important;
+                background-color: black !important;
+            }
+        }
+    }
+}

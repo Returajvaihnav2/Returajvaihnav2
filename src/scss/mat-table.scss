@@ -1,0 +1,45 @@
+//
+// src/app/comp-a/comp-a.theme.scss
+@import '~@angular/material/theming';
+@mixin mattable($theme) {
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent); // retrieve color def  
+    $warn: map-get($theme, warn); // retrieve color def  
+    mat-table {
+        font-family: $primary-font-family;
+        &.mat-table {
+            font-family: $primary-font-family;
+            font-size: 12px;
+            /* Body 2 */
+            // border: 1px solid $dark-color-50;
+        }
+        mat-header-row {
+            background-color: $dark-color-100 !important;
+            color: $dark-color-500;
+            filter: drop-shadow(0px 4px 8px rgba(8, 35, 48, 0.08));
+            border: 1px solid $dark-color-50;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 12px;
+            line-height: 16px;
+            display: flex;
+            align-items: center;
+        }
+        mat-header-cell {
+            font-family: $primary-font-family;
+            font-size: 12px !important;
+            width: 102px;
+            height: 44px;
+            font-weight: bold !important;
+        }
+        mat-row {
+            border: 1px solid $dark-color-50;
+        }
+        mat-cell {
+            font-family: $primary-font-family;
+            font-size: 12px !important;
+            width: 102px;
+            height: 44px;
+        }
+    }
+}

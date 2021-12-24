@@ -1,0 +1,23 @@
+@import '~@angular/material/theming';
+@import "./button.scss";
+@import "./iconbutton.scss";
+@import "./outlineinput.scss";
+@import "./matdrawer.scss";
+@import "./matcard.scss";
+@import "./mattoolbar.scss";
+@import "./mat-table.scss";
+@import "./mat-popup.scss";
+//mat-table
+// src/custom-component-themes.scss
+// import custom components themes
+// you only have to add additional components here (instead of in every theme class)
+@mixin custom-components-theme($theme) {
+    @include customButtoncreate($theme);
+    @include customIconButtoncreate($theme);
+    @include customOutlineInputcreate($theme);
+    @include matdrawer($theme);
+    @include matcard($theme);
+    @include mattoolbar($theme);
+    @include mattable($theme);
+    @include matpopup($theme);
+}

@@ -1,0 +1,20 @@
+<mat-drawer #drawer mode="side" disableClose="true" opened="true">
+    <mat-nav-list>
+        <mat-list-item>
+            <mat-icon mat-list-icon>dashboard</mat-icon>
+            <h4 mat-line *ngIf="menuservice.isExpanded">dashboard</h4>
+        </mat-list-item>
+        <mat-list-item>
+            <mat-icon mat-list-icon>pie_chart</mat-icon>
+            <h4 mat-line *ngIf="menuservice.isExpanded">AnalyseFast</h4>
+        </mat-list-item>
+        <mat-list-item>
+            <mat-icon mat-list-icon>layers</mat-icon>
+            <h4 mat-line *ngIf="menuservice.isExpanded">DealFast</h4>
+        </mat-list-item>
+        <mat-list-item>
+            <mat-icon mat-list-icon>compare_arrows</mat-icon>
+            <h4 mat-line *ngIf="menuservice.isExpanded">BCE</h4>
+        </mat-list-item>
+    </mat-nav-list>
+</mat-drawer>

@@ -1,0 +1,152 @@
+<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+    <h3 class="">Deal Overview
+        <span *ngIf="NoOfItems && getCount(NoOfItems?NoOfItems:null)>0">
+            ({{
+            getCount(NoOfItems?NoOfItems:null)}} most recent
+            deals)
+         
+
+            <button matTooltip="Click here to check all deals" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon"  (click)="openModal('DealOverviewDeails')">
+                <mat-icon>open_in_new</mat-icon>
+              </button>
+        </span>
+
+
+
+
+    </h3>
+</div>
+<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3">
+    <div *ngIf="!NoOfItems" style="width: 258px;">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">
+                    <i class="fa fa-search"></i>
+                </span>
+            </div>
+            <input type="text" class="form-control" (keyup)="applyFilter($event.target.value)" placeholder="Search">
+        </div>
+    </div>
+
+    <a *ngIf="!NoOfItems && dataSource.data && dataSource.data.length>0" type="button" href="JavaScript:void(0);" class="close pull-right" aria-label="Close" (click)="generateListExcel()" style="padding: 5px; width: 27px; color: blue;" title=" Export Excel">
+        <mat-icon *ngIf="!NoOfItems" (click)="close()">close</mat-icon>
+    </a>
+
+    <mat-icon *ngIf="!NoOfItems" (click)="close()">insert_drive_file</mat-icon>
+</div>
+<mat-table #table mat-table matSort [dataSource]="dataSource" multiTemplateDataRows class="table-responsive">
+    <ng-container matColumnDef="CounterParty">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Partner
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <span [matTooltip]="element?.CreatedDate | convertUTCSqlDate" placement="right">
+                <app-see-more [text]="element?.CounterParty" [maxLength]="35"
+                    [element]="element">
+                </app-see-more>
+            </span>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="TradeStatus">
+        <mat-header-cell *matHeaderCellDef>
+            TradeFAST
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" [ngClass]="(element.NoOfColumns<1)?'white':''">
+            <span [matTooltip]="element.TradeReferenceNo" placement="left" [ngClass]="element.TradeStatusColor">
+               <div class="Statuscircle"></div>
+            <a [contextMenu]="basicRightMenuTRADE" [contextMenuSubject]="element" (click)="redirectToPage(element,'TRADE',false)">{{element.TradeStatus}}
+                </a>
+            </span>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="ContractStatus">
+        <mat-header-cell *matHeaderCellDef>
+            DealFAST
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" [ngClass]="(element.NoOfColumns<2)?'white':''">
+            <span [matTooltip]="element.ContractReferenceNo" placement="left" [ngClass]="element.ContractStatusColor?element.ContractStatusColor:''">
+               <div class="Statuscircle"></div>
+            <a [contextMenu]="basicRightMenuDEAL" [contextMenuSubject]="element" (click)="redirectToPage(element,'DEAL',false)">{{element.ContractStatus}}
+                </a>
+            </span>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="SignStatus">
+        <mat-header-cell *matHeaderCellDef>
+            Signing
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" [ngClass]="(element.NoOfColumns<3)?'white':''">
+            <span [matTooltip]="element.ContractReferenceNo" placement="left" [ngClass]="element.SignStatusColor?element.SignStatusColor:''">
+               <div class="Statuscircle"></div>
+            <a [contextMenu]="basicRightMenuDEAL" [contextMenuSubject]="element" (click)="redirectToPage(element,'DEAL',false)">{{element.SignStatus}}
+                </a> </span>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="TAPStatus">
+        <mat-header-cell *matHeaderCellDef>
+            TapFAST
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" [ngClass]="(element.NoOfColumns<4)?'white':''">
+            <span [matTooltip]="element.TAPReferenceNo" placement="left" [ngClass]="element.TAPStatusColor">
+            <div class="Statuscircle"></div>
+            <a [contextMenu]="basicRightMenuTAP" [contextMenuSubject]="element" (click)="redirectToPage(element,'TAP',false)">{{element.TAPStatus}}
+                </a>
+            </span>
+        </mat-cell>
+    </ng-container>
+
+    <mat-row *matRowDef="let row; columns: displayedColumns;" class="element-row dealstrip" [class.highlightRow]="true" [class.highlightRownew]="">
+    </mat-row>
+
+    <ng-container matColumnDef="noData">
+        <mat-footer-cell *matFooterCellDef colspan="5">
+            Whoa! No Data Found !
+        </mat-footer-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true">
+    </mat-header-row>
+
+
+    <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(  (rowCount=== 0))}">
+    </mat-footer-row>
+
+
+</mat-table>
+<mat-paginator *ngIf="!NoOfItems" #MatPaginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20,50,100]" showFirstLastButtons>
+</mat-paginator>
+
+
+<context-menu #basicRightMenuTAP [menuClass]="'mystyle'">
+    <ng-template contextMenuItem (execute)="redirectToPage($event.item,'TAP', false)">
+        Open
+    </ng-template>
+    <!-- <ng-template contextMenuItem divider="true"></ng-template> -->
+    <ng-template contextMenuItem let-item (execute)="redirectToPage($event.item,'TAP',   true)">
+        Open link in new tab
+    </ng-template>
+</context-menu>
+
+<context-menu #basicRightMenuDEAL [menuClass]="'mystyle'">
+    <ng-template contextMenuItem (execute)="redirectToPage($event.item,'DEAL',  false)">
+        Open
+    </ng-template>
+    <!-- <ng-template contextMenuItem divider="true"></ng-template> -->
+    <ng-template contextMenuItem let-item (execute)="redirectToPage($event.item, 'DEAL',  true)">
+        Open link in new tab
+    </ng-template>
+</context-menu>
+
+<context-menu #basicRightMenuTRADE [menuClass]="'mystyle'">
+    <ng-template contextMenuItem (execute)="redirectToPage($event.item, 'TRADE', false)">
+        Open
+    </ng-template>
+    <!-- <ng-template contextMenuItem divider="true"></ng-template> -->
+    <ng-template contextMenuItem let-item (execute)="redirectToPage($event.item, 'TRADE',  true)">
+        Open link in new tab
+    </ng-template>
+</context-menu>

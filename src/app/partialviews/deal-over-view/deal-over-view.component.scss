@@ -1,0 +1,305 @@
+// table {
+//     width: 100%;
+// }
+// table,
+// tr,
+// th,
+// td {
+//     border: 1px solid gray;
+//     border-collapse: collapse;
+//     align-items: center;
+// }
+// td,
+// th {
+//     min-width: 128px;
+//     height: 25px;
+// }
+// .dealstrip {
+//     background-image: linear-gradient(to left, rgba(50, 212, 99, 0), rgb(107, 216, 165));
+//     //  padding:2px;
+//     //  border-radius: 2px;
+//     //  border:1px solid rgb(49, 148, 49);
+// }
+// .headingbox {
+//     border: 1px solid;
+//     border-radius: 1px;
+//     min-width: inherit;
+//     float: left;
+//     padding: 4px;
+//     text-align: center;
+//     width: 100%;
+// }
+// .white {
+//     background-color: white;
+// }
+// .orangebg {
+//     background-color: silver;
+// }
+// .ng-chat-participant-status {
+//     display: inline-block;
+//     border-radius: 25px;
+//     width: 8px;
+//     height: 8px;
+//     margin-top: 0px;
+//     margin-right: -8px;
+// }
+// .example-container {
+//     display: flex;
+//     flex-direction: column;
+//     // max-height: 600px;
+//     min-width: 300px;
+// }
+// .mat-column-CounterParty {
+//     flex: 0 0 24% !important;
+// }
+// .mat-column-TradeStatus {
+//     flex: 0 0 18% !important;
+// }
+// .mat-column-ContractStatus {
+//     flex: 0 0 18% !important;
+// }
+// .mat-column-SignStatus {
+//     flex: 0 0 18% !important;
+// }
+// .mat-column-TAPStatus {
+//     flex: 0 0 18% !important;
+// }
+// .element-row {
+//     position: relative;
+// }
+// .element-row:not(.expanded) {
+//     a {
+//         cursor: pointer;
+//     }
+//     margin-bottom: 1px;
+// }
+// .element-row.expanded {
+//     border-bottom-color: transparent;
+// }
+// .arrowColorRight {
+//     color: #027b7f;
+// }
+// .arrowColorLeft {
+//     color: #474879;
+// }
+// .checktrue {
+//     color: green;
+// }
+// .checkfalse {
+//     color: red;
+// }
+// .rawRed {
+//     color: #f86c6b;
+// }
+// .full-width {
+//     width: 100%;
+// }
+// .row-highlight {
+//     background-color: #d7e9e4;
+//     font-weight: bold;
+//     border-left: 4px solid #2a937b;
+// }
+// .table tr th {
+//     border-color: rgba(0, 0, 0, 0.12) !important;
+// }
+// .table-bordered th,
+// .table-bordered td {
+//     word-break: keep-all;
+//     text-align: center;
+// }
+// .mat-table {
+//     overflow: auto;
+// }
+// .mat-header-cell {
+//     font-weight: bold;
+//     color: black;
+//     display: inline-flex;
+//     justify-content: center;
+//     border-left: 1px solid Gray;
+//     border-bottom: 1px solid Gray;
+//     border-color: rgba(0, 0, 0, 0.12);
+//     word-break: keep-all !important;
+//     // word-wrap: break-word;
+//     padding: 0 5px;
+// }
+// .mat-cell {
+//     display: inline-flex;
+//     justify-content: center;
+//     border-left: 1px solid Gray;
+//     border-bottom: 1px solid Gray;
+//     border-color: rgba(0, 0, 0, 0.12);
+//     // word-break: break-all; 
+//     // word-wrap: break-word;
+//     font-size: 12px !important;
+//     padding: 0 5px;
+// }
+// .mat-row {
+//     width: 100%;
+//     min-height: 28px;
+//     min-height: 40px;
+// }
+// .mat-header-row {
+//     width: 100%;
+//     min-height: 46px;
+//     border-bottom: none;
+// }
+// .mat-cell:first-of-type,
+// .mat-header-cell:first-of-type {
+//     padding-left: 0px;
+// }
+// .mat-cell:last-of-type,
+// .mat-header-cell:last-of-type {
+//     padding-right: 0px;
+// }
+// .mat-footer-cell {
+//     word-break: break-all;
+//     word-wrap: break-word;
+// }
+// .container-table {
+//     height: 100%;
+// }
+// .container-table {
+//     display: table;
+// }
+// .vertical-center-row {
+//     display: table-cell;
+//     vertical-align: middle;
+// }
+// .period-bg-ligt-blue {
+//     background-color: #f7f8f9 !important;
+// }
+// .mat-column-expandedDetail {
+//     overflow-x: auto;
+//     padding: 0px;
+//     margin-right: 10px;
+//     flex: 0 0 100% !important;
+// }
+// @media (min-width: 84px) {
+//     .mat-row,
+//     .mat-header-row {
+//         width: 100%;
+//         min-width: 600px;
+//         border-bottom: none;
+//     }
+// }
+// // Small devices (landscape phones, 576px and up)
+// @media (min-width: 576px) {}
+// // Medium devices (tablets, 768px and up)
+// @media (min-width: 768px) {}
+// // Large devices (desktops, 992px and up)
+// @media (min-width: 992px) {}
+// // Extra large devices (large desktops, 1200px and up)
+// @media (min-width: 1200px) {}
+// span.badge {
+//     font-size: inherit !important;
+//     font-weight: inherit !important;
+// }
+// .box-section {
+//     .box-view {
+//         .form-section {
+//             margin: 0px;
+//             padding: 0px;
+//             .statusrow {
+//                 padding: 10px;
+//             }
+//             .btn-layout {
+//                 display: inline-block;
+//                 margin-bottom: 10px;
+//                 margin-right: 20px;
+//                 .btn {
+//                     padding: 6px 12px;
+//                     margin-bottom: 0;
+//                     font-size: 14px;
+//                     font-weight: 400;
+//                     text-align: center;
+//                     vertical-align: middle;
+//                     cursor: pointer;
+//                     background-color: #f4f4f4;
+//                     color: #444;
+//                     border-color: #ddd;
+//                     white-space: nowrap;
+//                     line-height: normal;
+//                     width: 100%;
+//                     &.btn-ttl {
+//                         border-radius: 4px;
+//                         text-overflow: ellipsis;
+//                         position: relative;
+//                         min-width: 75px;
+//                     }
+//                     .badge {
+//                         position: absolute;
+//                         top: -8px;
+//                         right: -10px;
+//                         border-radius: 10px;
+//                         padding: 3px 7px;
+//                     }
+//                     label {
+//                         width: 100%;
+//                         display: block;
+//                         margin-bottom: 0;
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
+// .hide {
+//     display: none;
+// }
+//  ::ng-deep .mat-footer-cell {
+//     display: flex;
+//     justify-content: center;
+// }
+// .box-section .box-view .box-header {
+//     display: block;
+// }
+// .select-70px {
+//     width: 70px;
+// }
+// .box-section .box-view .box-header {
+//     padding: 0px;
+//     padding-top: 5px;
+// }
+// .box-section .box-view .box-header.bottom-border.txt-drop {
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//     overflow: visible;
+// }
+// .box-section .box-view .box-header {
+//     color: #444;
+//     display: flex;
+//     padding: 10px;
+//     overflow: hidden;
+//     text-overflow: ellipsis;
+//     white-space: nowrap;
+// }
+// .box-header {
+//     text-align: center !important;
+// }
+// .box-section .box-view .box-header.bottom-border.txt-drop .box-header-title {
+//     width: 100%;
+// }
+// .border-label>.box-header-title {
+//     color: black !important;
+// }
+// .box-section .box-view .box-header-title {
+//     font-size: 18px;
+//     margin: 0;
+//     font-weight: bold;
+//     overflow: hidden;
+//     text-overflow: ellipsis;
+//     text-align: center;
+// }
+// .bg-lightGreen {
+//     background: #54D295 !important;
+// }
+// .bg-naveyBlue {
+//     background: #20a8d8 !important;
+// }
+// .bg-cust-purple {
+//     background: #7D85E1 !important;
+// }
+// .bg-cust-blue {
+//     background: #AFD6E5 !important;
+// }

@@ -1,0 +1,27 @@
+//
+// src/app/comp-a/comp-a.theme.scss
+@import '~@angular/material/theming';
+@mixin mattoolbar($theme) {
+    // define mixin
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent); // retrieve color def
+    mat-toolbar {
+        //background-color: mat-color($primary) !important;
+        //color: mat-color($primary, 50) !important;
+        //    background-color: mat-color($primary, A400) !important;
+        // position: absolute;
+        position: sticky;
+        width: 1440px;
+        height: 60px;
+        left: 0px;
+        top: 0px;
+        /* Light / 50 */
+        background: $light-color-50;
+        /* 4dp */
+        box-shadow: $shadow4;
+        z-index: 99;
+        &.mat-toolbar-single-row {
+            height: 50px;
+        }
+    }
+}

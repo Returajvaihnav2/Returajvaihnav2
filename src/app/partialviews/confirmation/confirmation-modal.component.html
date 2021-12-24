@@ -1,0 +1,19 @@
+<div class="alert-box">
+  <div class="modal-header">
+    <h4 class="modal-title">{{modalData.title}}</h4>
+    <button *ngIf="!modalData.isRemoveXButton" type="button" class="close" aria-label="Close" (click)="onConfirm()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" [innerHTML]="modalData.message">
+  </div>
+  <div class="modal-footer">
+    <button *ngIf="modalData.cancelTitle.trim().length" type="button"
+      class="{{ (modalData.closeTitle && modalData.closeTitle.trim().length) ? 'btn btn-blue-yes' : 'btn btn-secondary' }}"
+      (click)="onConfirm(false)">{{modalData.cancelTitle}}</button>
+    <button *ngIf="modalData.submitTitle.trim().length" type="button" class="btn btn-blue-yes"
+      (click)="onConfirm(true)">{{modalData.submitTitle}}</button>
+    <button *ngIf="modalData.closeTitle && modalData.closeTitle.trim().length" type="button" class="btn btn-secondary"
+      (click)="onConfirm()">{{modalData.closeTitle}}</button>
+  </div>
+</div>

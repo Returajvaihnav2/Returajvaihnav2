@@ -1,0 +1,638 @@
+<link *ngIf="customTheme" rel="stylesheet" [href]='customTheme | sanitize'>
+
+<div id="ng-chat" *ngIf="!isDisabled && isBootstrapped && !unsupportedViewport" [ngClass]="theme">
+    <div *ngIf="!hideFriendsList" id="ng-chat-people"
+        [ngClass]="{'primary-outline-color': true, 'primary-background': true, 'ng-chat-people-collapsed': isCollapsed}">
+        <div class="chat__titlebox shadowed">
+
+            <select class="ng-chat-title chat__status secondary-background select-chat-status"
+                (change)="adapter.changeStatus($event)" [value]="adapter.currentStatus">
+                <option value="1" selected>Online</option>
+                <option value="2">Busy</option>
+                <option value="3">Away</option>
+                <option value="0">Offline</option>
+            </select>
+
+            <span
+                [ngClass]="{'right-bottom-chat-status ng-chat-participant-status status-cust-margin': true, 'online': adapter.currentStatus == ChatParticipantStatus.Online, 'busy': adapter.currentStatus == ChatParticipantStatus.Busy, 'away': adapter.currentStatus == ChatParticipantStatus.Away, 'offline': adapter.currentStatus == ChatParticipantStatus.Offline}"></span>
+            <a (click)="openGroupModel()" class="addGroup" tooltip="Create group"> <i class="fa fa-users"
+                    aria-hidden="true"></i></a>
+            <a href="javascript:void(0);" class="ng-chat-title secondary-background width-55"
+                (click)="onChatTitleClicked($event)">
+                <span *ngIf="unreadCounts > 0"
+                    class="ng-chat-unread-messages-count unread-messages-counter-container primary-text">
+                    {{unreadCounts}}</span>
+
+                <i style="padding-right: 22px;padding-top: 11px;"
+                    class="{{!isCollapsed ? 'fa fa-chevron-down fa-lg pull-right':  'fa fa-chevron-up fa-lg pull-right'}}"></i>
+            </a>
+        </div>
+        <div *ngIf="currentActiveOption" class="ng-chat-people-actions" (click)="onFriendsListActionCancelClicked()">
+            <a href="javascript:void(0);" class="ng-chat-people-action">
+                <i class="remove-icon"></i>
+            </a>
+            <a href="javascript:void(0);" class="ng-chat-people-action" (click)="onFriendsListActionConfirmClicked()">
+                <i class="check-icon"></i>
+            </a>
+        </div>
+        <input *ngIf="searchEnabled" id="ng-chat-search_friend" class="friends-search-bar" type="text" maxlength="20"
+            [placeholder]="localization.searchPlaceholder" (input)="searchInputChange($event.target.value)" />
+        <ul id="ng-chat-users" class="ng-chat-users" *ngIf="!isCollapsed" [ngClass]="{'offset-search': searchEnabled}">
+            <li *ngFor="let user of filteredParticipants" tooltip="{{user.email?user.email:user.displayName }}">
+                <input *ngIf="currentActiveOption && currentActiveOption.validateContext(user)" type="checkbox"
+                    class="ng-chat-users-checkbox" (change)="onFriendsListCheckboxChange(user, $event.target.checked)"
+                    [checked]="isUserSelectedFromFriendsList(user)" />
+                <div [ngClass]="{'ng-chat-friends-list-selectable-offset': currentActiveOption, 'ng-chat-friends-list-container': true}"
+                    (click)="openChatWindow(user, true, true)">
+                    <span *ngIf="user.avtar">
+                        <ngx-avatar class="avatar" name="{{user.ShortName?user.ShortName:user.displayName}}"
+                            src="{{user.avtar}}" size="30" textSizeRatio="2.5" [round]="true" bgColor='#72a2e0'>
+                        </ngx-avatar>
+                    </span>
+                    <span *ngIf="!user.avtar">
+                        <span *ngIf="getNonAvtarUser(user,filteredParticipants)%2==0">
+                            <ngx-avatar class="avatar" name="{{user.ShortName?user.ShortName:user.displayName}}"
+                                src="{{user.avtar}}" size="30" textSizeRatio="2.5" [round]="true" bgColor='#72a2e0'>
+                            </ngx-avatar>
+                        </span>
+                        <span *ngIf="getNonAvtarUser(user,filteredParticipants)%2!=0">
+                            <ngx-avatar class="avatar" name="{{user.ShortName?user.ShortName:user.displayName}}"
+                                src="{{user.avtar}}" size="30" textSizeRatio="2.5" [round]="true" bgColor='#2c3e50'>
+                            </ngx-avatar>
+                        </span>
+                    </span>
+
+
+
+                    <span class="chatHeadertitle">
+                        <span class="headerdisplayName"
+                            [ngClass]="{'unRead-counts': (unreadMessagesTotalByParticipant(user) > 0)}">{{user.displayName
+                            |
+                            maxLengthTextGetPipe : 20}}</span>
+                    </span>
+                    <span *ngIf="unreadMessagesTotalByParticipant(user) > 0"
+                        class="ng-chat-unread-messages-count unread-messages-counter-container primary-text unreadbgcolor">{{unreadMessagesTotalByParticipant(user)}}</span>
+
+                    <!-- Hidding Unread Message Count -->
+                    <span *ngIf="user.participantType === ChatParticipantType.User"
+                        [ngClass]="{'right-bottom-chat-status ng-chat-participant-status': true, 'online': user.status == ChatParticipantStatus.Online, 'busy': user.status == ChatParticipantStatus.Busy, 'away': user.status == ChatParticipantStatus.Away, 'offline': user.status == ChatParticipantStatus.Offline}"
+                        title="{{getStatusTitle(user.status)}}"></span>
+                </div>
+                <div class="operator-name">
+                    <span *ngIf="user.participantType === ChatParticipantType.User" class="headerTCID">{{user.tcid}}
+                    </span>
+                    <span *ngIf="user.participantType === ChatParticipantType.Group && !user.isTyping"
+                        (click)="editGroupFromUserList(user)" class="headerTCID">{{user.Participant+' Participants'}}
+                    </span>
+
+                    <span *ngIf="user.participantType === ChatParticipantType.Group && user.isTyping"
+                        class="headerTCID">{{user.typingUserName}}</span>
+                    <span class="sk-three-bounce custom-typing-user-list" *ngIf="user.isTyping">
+                        <!-- {{user.typingUserName}} -->
+                        <span class="sk-child sk-bounce1"></span>
+                        <span class="sk-child sk-bounce2"></span>
+                        <span class="sk-child sk-bounce3"></span>
+                    </span>
+                </div>
+
+            </li>
+
+        </ul>
+    </div>
+    <div *ngFor="let window of windows; let i = index"
+        [ngClass]="{'ng-chat-window': true, 'primary-outline-color': true, 'ng-chat-window-collapsed': window.isCollapsed}"
+        [ngStyle]="{'right': (!hideFriendsList ? friendsListWidth : 0) + 20 + windowSizeFactor * i + 'px'}">
+        <ng-container *ngIf="window.isCollapsed">
+            <div class="ng-chat-title secondary-background pd0">
+                <div class="ng-chat-title-visibility-toggle-area user__chatbox">
+                    <span>
+                        <ngx-avatar class="avatar"
+                            (clickOnAvatar)="window.participant.participantType === ChatParticipantType.User?openProfile(window.participant,i):editGroup(window)"
+                            name="{{window.participant.ShortName?window.participant.ShortName:window.participant.displayName}}"
+                            src="{{window.participant.avatar}}" size="30" textSizeRatio="2.5" [round]="true"
+                            tooltip="{{(window.participant.email?window.participant.email:window.participant.displayName)}}"
+                            bgColor='#72a2e0'>
+                        </ngx-avatar>
+
+                        <strong
+                            tooltip="{{(window.participant.email?window.participant.email:window.participant.displayName) }}"
+                            class="chatHeadertitle">
+                            <span class="headerdisplayName" (click)="editGroup(window)">
+                                {{window.participant.displayName | maxLengthTextGetPipe : 15}}
+                            </span>
+                            <span class="headerTCID" *ngIf="window.participant?.TCID">
+                                {{window.participant.TCID}}
+                                <span class="sk-three-bounce custom-typing-user-list"
+                                    *ngIf="window.participant.isTyping">
+                                    <!-- {{user.typingUserName}} -->
+                                    <span class="sk-child sk-bounce1"></span>
+                                    <span class="sk-child sk-bounce2"></span>
+                                    <span class="sk-child sk-bounce3"></span>
+                                </span>
+                            </span>
+
+                            <span class="headerTCID Grouplink" (click)="editGroup(window)"
+                                *ngIf="window.participant.participantType == ChatParticipantType.Group && !window.participant?.TCID && !window.participant.isTyping">
+                                {{window.participant.Participant +' Participants'}}
+                            </span>
+
+                            <span class="headerTCID Grouplink"
+                                *ngIf="window.participant.participantType === ChatParticipantType.Group">
+                                {{window.participant.typingUserName}}
+                                <span class="sk-three-bounce custom-typing-user-list"
+                                    *ngIf="window.participant.isTyping">
+                                    <!-- {{user.typingUserName}} -->
+                                    <span class="sk-child sk-bounce1"></span>
+                                    <span class="sk-child sk-bounce2"></span>
+                                    <span class="sk-child sk-bounce3"></span>
+                                </span>
+                            </span>
+
+
+                        </strong>
+
+                        <span class="padding-top-15px userStatus"
+                            *ngIf="window.participant.participantType !== ChatParticipantType.Group"
+                            [ngClass]="{'ng-chat-participant-status': true, 'online': window.participant.status == ChatParticipantStatus.Online, 'busy': window.participant.status == ChatParticipantStatus.Busy, 'away': window.participant.status == ChatParticipantStatus.Away, 'offline': window.participant.status == ChatParticipantStatus.Offline}"
+                            title="{{getStatusTitle(window.participant.status)}}"></span>
+                        <span *ngIf="unreadMessagesTotal(window).length > 0"
+                            class="ng-chat-unread-messages-count unread-messages-counter-container primary-text">{{unreadMessagesTotal(window)}}</span>
+
+                        <span class="add-Group-user" (click)="editGroup(window, true)"
+                            *ngIf="window.isAdmin || window.participant.participantType === ChatParticipantType.User"><i
+                                class="fa fa-user-plus fa-lg mt-4"></i></span>
+                        <div class="chat-max-min" (click)="onChatWindowClicked(window)"><i
+                                class="fa fa-chevron-up fa-lg "></i>
+                        </div>
+                    </span>
+
+                    <div class="pin-min-max"
+                        [ngClass]="{'pinned-icon': (window.isPinned && noOfPins < 3), 'unpinned-icon': !window.isPinned && noOfPins >= 2}"
+                        (click)="togglePin(window)"> <i class="fa fa-thumb-tack fa-lg"></i></div>
+                    <a href="javascript:void(0);" class="ng-chat-close primary-text"
+                        (click)="onCloseChatWindow(window)">X</a>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="!window.isCollapsed">
+            <div class="ng-chat-title secondary-background pd0">
+                <div class="ng-chat-title-visibility-toggle-area user__chatbox">
+                    <span>
+
+                        <ngx-avatar class="avatar"
+                            (clickOnAvatar)="window.participant.participantType === ChatParticipantType.User?openProfile(window.participant,i):editGroup(window)"
+                            name="{{window.participant.ShortName?window.participant.ShortName:window.participant.displayName}}"
+                            src="{{window.participant.avatar}}" size="30" textSizeRatio="2.5" [round]="true"
+                            tooltip="{{(window.participant.email?window.participant.email:window.participant.displayName)}}"
+                            bgColor='#72a2e0'>
+                        </ngx-avatar>
+
+                        <strong
+                            tooltip="{{(window.participant.email?window.participant.email:window.participant.displayName)}}"
+                            class="chatHeadertitle">
+                            <span class="headerdisplayName"
+                                (click)="window.participant.participantType == ChatParticipantType.Group ? editGroup(window) : ''">
+                                {{window.participant.displayName | maxLengthTextGetPipe : 15}}
+                            </span>
+                            <span class="headerTCID" *ngIf="window.participant?.TCID">
+                                {{window.participant.TCID}}
+                                <span class="sk-three-bounce custom-typing-user-list"
+                                    *ngIf="window.participant.isTyping">
+                                    <!-- {{user.typingUserName}} -->
+                                    <span class="sk-child sk-bounce1"></span>
+                                    <span class="sk-child sk-bounce2"></span>
+                                    <span class="sk-child sk-bounce3"></span>
+                                </span>
+                            </span>
+
+                            <span class="headerTCID Grouplink" (click)="editGroup(window)"
+                                *ngIf="window.participant.participantType == ChatParticipantType.Group && !window.participant?.TCID && !window.participant.isTyping">
+                                {{ window.participant.Participant +' Participants'}}
+                            </span>
+
+                            <span class="headerTCID Grouplink"
+                                *ngIf="window.participant.participantType === ChatParticipantType.Group">
+                                {{window.participant.typingUserName}}
+                                <span class="sk-three-bounce custom-typing-user-list"
+                                    *ngIf="window.participant.isTyping">
+                                    <!-- {{user.typingUserName}} -->
+                                    <span class="sk-child sk-bounce1"></span>
+                                    <span class="sk-child sk-bounce2"></span>
+                                    <span class="sk-child sk-bounce3"></span>
+                                </span>
+                            </span>
+
+
+                        </strong>
+                        <span class="padding-top-15px userStatus"
+                            *ngIf="window.participant.participantType !== ChatParticipantType.Group"
+                            [ngClass]="{'ng-chat-participant-status': true, 'online': window.participant.status == ChatParticipantStatus.Online, 'busy': window.participant.status == ChatParticipantStatus.Busy, 'away': window.participant.status == ChatParticipantStatus.Away, 'offline': window.participant.status == ChatParticipantStatus.Offline}"
+                            title="{{getStatusTitle(window.participant.status)}}"></span>
+                        <!-- *ngIf="unreadMessagesTotal(window).length > 0" -->
+                        <span *ngIf="unreadMessagesTotal(window).length > 0"
+                            class="ng-chat-unread-messages-count unread-messages-counter-container primary-text">{{unreadMessagesTotal(window)}}</span>
+
+                        <span class="add-Group-user" tooltip="Add users to conversation"
+                            (click)="editGroup(window, true)"
+                            *ngIf="window.isAdmin || window.participant.participantType === ChatParticipantType.User"><i
+                                class="fa fa-user-plus fa-lg mt-4"></i></span>
+
+                        <div class="chat-max-min" (click)="onChatWindowClicked(window)"><i
+                                class="fa fa-chevron-down fa-lg "></i>
+                        </div>
+                    </span>
+
+                    <div class="pin-min-max"
+                        [ngClass]="{'pinned-icon': (window.isPinned && noOfPins < 3), 'unpinned-icon': !window.isPinned && noOfPins >= 2}"
+                        (click)="togglePin(window)"> <i class="fa fa-thumb-tack fa-lg"></i></div>
+                    <a href="javascript:void(0);" class="ng-chat-close primary-text"
+                        (click)="onCloseChatWindow(window)">X</a>
+                </div>
+                <div class="chat__button" *ngIf="window.participant.connectStatus == ChatConnectType.RequestRecieved">
+                    <button class="btn btn-success btn-sm"
+                        (click)="sendRequest(ChatConnectType.Accepted, window.participant)">Accept</button>
+                    &nbsp;
+                    <button class="btn btn-danger btn-sm"
+                        (click)="sendRequest(ChatConnectType.Rejected, window.participant)">Reject</button>
+                </div>
+
+                <div class="chat__button" *ngIf="window.participant.connectStatus == ChatConnectType.Accepted">
+                </div>
+
+                <div class="chat__button" *ngIf="window.participant.connectStatus == ChatConnectType.Rejected">
+                    <a class="btn btn-danger btn-sm reject-message"> Apologies, can't chat now</a>
+                </div>
+
+
+                <ng-chat-options [ngClass]="'ng-chat-options-container'" [options]="defaultWindowOptions(window)"
+                    [chattingTo]="window" [(activeOptionTracker)]="currentActiveOption"></ng-chat-options>
+            </div>
+            <div #chatMessages class="ng-chat-messages primary-background" appDnd (droppedQ)="onDrop($event, window)"
+                [ngClass]="{'chat-window-padding': (window.participant.connectStatus == ChatConnectType.RequestRecieved || window.participant.connectStatus == ChatConnectType.Rejected)}">
+                <div *ngIf="window.isLoadingHistory" class="ng-chat-loading-wrapper">
+                    <div class="loader">Loading history...</div>
+                </div>
+
+                <div *ngIf="window.previousDate" class="ng-chat-load-history">
+                    <a class="load-history-action" (click)="loadChatHistory(window)">
+                        View history</a>
+                </div>
+                <div *ngFor="let message of window.messages; let i = index">
+
+                    <div class="date-header" *ngIf="(message.showDateSep && message.showDateSep === true) || i === 0"
+                        [id]="'date_'+message.id">
+                        <div class="separator-border"><span>{{message.dateSent | dateFormat}}</span>
+                        </div>
+                    </div>
+                    <ng-container *ngIf="isAvatarVisible(window, message, i)">
+                        <ngx-avatar class="avatar avatar-icon" (clickOnAvatar)="openProfile(getParticipant(message),i)"
+                            name="{{getParticipant(message).ShortName?getParticipant(message).ShortName:getParticipant(message).displayName}}"
+                            src="{{getParticipant(message).avatar}}" size="20" textSizeRatio="2.5" [round]="true"
+                            tooltip="{{(getParticipant(message).email?getParticipant(message).email:getParticipant(message).displayName)}}"
+                            bgColor='#72a2e0'>
+                        </ngx-avatar>
+                        <span
+                            *ngIf="window.participant.participantType == ChatParticipantType.Group && MessageType.Watermark !== message.type"
+                            class="ng-chat-participant-name"><br />{{window.participant |
+                            groupMessageDisplayName:message:adapter.allUsers}}</span>
+                    </ng-container>
+                    <div [ngClass]="{'ng-chat-message': true, 'ng-chat-message-received': message.fromId != userId}"
+                        [id]="'message_'+message.id">
+
+                        <ng-container [ngSwitch]="message.type">
+
+                            <div *ngSwitchCase="MessageType.Text"
+                                [ngClass]="{'sent-chat-message-container': message.fromId == userId, 'received-chat-message-container': message.fromId != userId}">
+                                <span style="white-space: pre-line;"
+                                    [innerHtml]="message.message | emojify:emojisEnabled | linkfy:linkfyEnabled">
+                                </span>
+
+                                <span *ngIf="showMessageDate && message.dateSent" class="message-sent-date pull-right"
+                                    [ngClass]="{'message-sent-date': message.fromId == userId, 'message-receive-date': message.fromId != userId}">
+                                    {{message.dateSent | date: 'HH:mm':'IST'}}
+                                </span>
+
+                            </div>
+                            <div *ngSwitchCase="MessageType.Watermark" style="text-align: center;">
+                                <span style="white-space: pre-line; color: rgba(0, 0, 0, 0.6);"
+                                    [innerHtml]="message | chatWaterMark:userId:adapter.allUsers">
+                                </span>
+                            </div>
+                            <div *ngSwitchCase="MessageType.File" class="uploadFile"
+                                [ngClass]="{'sent-chat-message-container': message.fromId == userId, 'received-chat-message-container': message.fromId != userId}">
+                                <div class="file-message-icon-container">
+                                    <i class="paperclip-icon"></i>
+                                </div>
+                                <div class="linkbox">
+                                    <a class="file-details" (click)="downloadFile(message.fileUuid, message.message)"
+                                        target="_blank" rel="noopener noreferrer"
+                                        (click)="this.markMessagesAsRead([message])" download>
+                                        <span class="file-message-title"
+                                            [attr.title]="message.message">{{message.message}}</span>
+                                        <br />
+                                        <span *ngIf="message.fileSizeInBytes"
+                                            class="file-message-size">{{humanFileSize(message.fileSizeInBytes)}}</span>
+                                    </a>
+                                </div>
+                                <span *ngIf="showMessageDate && message.dateSent" class="message-sent-date pull-right"
+                                    [ngClass]="{'message-sent-date': message.fromId == userId, 'message-receive-date': message.fromId != userId}">
+                                    {{message.dateSent | date: 'HH:mm':'IST'}}
+                                </span>
+                            </div>
+                            <br />
+                        </ng-container>
+                    </div>
+                </div>
+
+                <div *ngIf="window.participant.participantType === ChatParticipantType.User && window.participant.status === ChatParticipantStatus.Offline && window.messages.length > 0 && window.messages[window.messages.length - 1] && window.messages[window.messages.length - 1].fromId === userId && !window.messages[window.messages.length - 1].emailNotified"
+                    style="clear: right;">
+
+                    <div class="chat-email">User is offline, do you want to send your message as an e-mail
+                        alert?
+                    </div>
+
+
+
+                    <div style="text-align: center;margin-top: 10px;">
+                        <button type="button" class="btn btn-primary" style="margin-right: 30px;"
+                            (click)="sendEmail(window, true)">Yes</button>
+                        <button type="button" class="btn btn-danger" style="margin-left: 30px;"
+                            (click)="sendEmail(window, false)">No</button>
+                    </div>
+
+                </div>
+            </div>
+            <div class="ng-chat-footer primary-outline-color primary-background">
+                <textarea #chatWindowInput [ngModel]="window.newMessage | emojify:emojisEnabled"
+                    (ngModelChange)="window.newMessage=$event" [placeholder]=" localization.messagePlaceholder "
+                    [ngClass]="{'chat-window-input': true, 'has-side-action': fileUploadAdapter}"
+                    (keydown)="onChatInputTyped($event, window)" (blur)="toggleWindowFocus(window)"
+                    (focus)="toggleWindowFocus(window)"
+                    [disabled]='window.participant.connectStatus === ChatConnectType.RequestRecieved ? true : false'
+                    rows="2" id="messageTextBox" maxlength="500" autosize></textarea>
+
+
+
+                <!-- File Upload -->
+                <ng-container *ngIf="fileUploadAdapter">
+                    <a *ngIf="!isUploadingFile(window)" class="btn-add-file" (click)="triggerNativeFileUpload(window)">
+                        <i class="fa fa-paperclip"></i>
+                    </a>
+                    <input type="file" #nativeFileInput style="display: none;" accept="text/plain, application/pdf, image/bmp, image/cis-cod, image/gif,
+                        image/ief, image/jpeg, image/jpg, image/png, image/pipeg , image/svg+xml,
+                        image/tiff, image/tiff, image/x-cmu-raster, image/x-cmx , image/x-icon,
+                        image/x-portable-anymap , image/x-portable-bitmap , image/x-portable-pixmap , image/x-portable-graymap,
+                        image/x-rgb, image/x-xbitmap, image/x-xpixmap, image/x-xwindowdump, application/vnd.ms-excel,
+                        application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
+                        application/vnd.openxmlformats-officedocument.spreadsheetml.template, application/vnd.ms-excel.sheet.macroEnabled.12
+                        , application/vnd.ms-excel.template.macroEnabled.12, pplication/vnd.ms-excel.addin.macroEnabled.12,
+                        application/vnd.ms-excel.sheet.binary.macroEnabled.12, .csv"
+                        [attr.id]="getUniqueFileUploadInstanceId(window)" (change)="onFileChosen($event,window)" />
+                    <div *ngIf="isUploadingFile(window)" class="loader"></div>
+                </ng-container>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<!-- Add Group  -->
+<ng-template #groupChatComponent>
+    <div class="alert-box group-box">
+        <div class="modal-header">
+            <h4 class="modal-title">Manage group</h4>
+            <div style="display: flex;">
+
+                <button *ngIf="groupManageForm.value.id && isGroupAdmin" type="button" tooltip="Delete group"
+                    class="btn btn-ghost" (click)="deleteGroup()">
+                    <a href="javascript:void(0);" class="ng-chat-people-action">
+                        <!-- <i class="remove-icon"></i> -->
+                        <i class="cui-trash icons font-2xl d-block"></i>
+                    </a>
+
+                </button>
+                &nbsp;
+                <button *ngIf="groupManageForm.value.id" type="button" tooltip="Leave group"
+                    class="btn btn-ghost-danger" (click)="leaveGroup()">
+                    <i class="cui-account-logout icons font-2xl d-block"></i>
+                </button>
+
+                <button type="button" class="close" aria-label="Close" (click)="closegroupChatComponentModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+        {{groupMessage}}
+        <div class="modal-body" [formGroup]="groupManageForm">
+            <div class="GroupUserWindow" style="max-height: 400px;overflow-y: scroll;">
+                <div class="input-group search-filter col-md-8" style="margin-left: -8px;padding: 10px;">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa fa-search"></i>
+                        </span>
+                    </div>
+                    <input type="hidden" class="form-control" formControlName="users">
+                    <br *ngIf="isGroupAdmin" />
+                    <input type="text" class="form-control" formControlName="searchText" placeholder="Search by name"
+                        *ngIf="isGroupAdmin">
+                    <br *ngIf="isGroupAdmin" />
+                </div>
+                <div *ngIf="SelectedGroupUserList.length > 0">
+                    <label for="all" *ngIf="isGroupAdmin">
+                        <input type="checkbox" name="all" id="all" (change)="selectAll($event)"
+                            [checked]="isSelectedAll" /> Assign admin rights to all users
+                    </label> &nbsp;
+
+                    <input type="checkbox" name="all" (change)="selectAll($event)" [checked]="isSelectedAll"
+                        *ngIf="isGroupAdmin" />
+                    <br *ngIf="isGroupAdmin" />&nbsp;
+                    <table class="group-table">
+                        <tr>
+                            <th>Participant</th>
+                            <th *ngIf="isGroupAdmin">Status</th>
+                            <th *ngIf="isGroupAdmin">Admin</th>
+                        </tr>
+                        <tr
+                            *ngFor="let user of SelectedGroupUserList | dataFilter : groupManageForm.get('searchText').value:'participant';let x=index;">
+                            <td>
+                                <span *ngIf="user.participant.avtar">
+                                    <ngx-avatar class="avatar" (clickOnAvatar)="openProfile(user.participant,i)"
+                                        name="{{user.participant.ShortName?user.participant.ShortName:user.participant.displayName}}"
+                                        src="{{user.participant.avtar}}" size="30" textSizeRatio="2.5" [round]="true"
+                                        tooltip="{{(user.participant.email?user.participant.email:user.participant.displayName)}}"
+                                        bgColor='#72a2e0'>
+                                    </ngx-avatar>
+                                </span>
+                                <span *ngIf="!user.participant.avtar">
+                                    <span
+                                        *ngIf="getNonAvtarUser(user.participant,SelectedGroupUserList,true,true)%2==0">
+                                        <ngx-avatar class="avatar" (clickOnAvatar)="openProfile(user.participant,i)"
+                                            name="{{user.participant.ShortName?user.participant.ShortName:user.participant.displayName}}"
+                                            src="{{user.participant.avtar}}" size="30" textSizeRatio="2.5"
+                                            tooltip="{{(user.participant.email?user.participant.email:user.participant.displayName)}}"
+                                            [round]="true" bgColor='#72a2e0'>
+                                        </ngx-avatar>
+                                    </span>
+                                    <span
+                                        *ngIf="getNonAvtarUser(user.participant,SelectedGroupUserList,true,true)%2!=0">
+                                        <ngx-avatar class="avatar" (clickOnAvatar)="openProfile(user.participant,i)"
+                                            name="{{user.participant.ShortName?user.participant.ShortName:user.participant.displayName}}"
+                                            src="{{user.participant.avtar}}" size="30" textSizeRatio="2.5"
+                                            tooltip="{{(user.participant.email?user.participant.email:user.participant.displayName)}}"
+                                            [round]="true" bgColor='#2c3e50'>
+                                        </ngx-avatar>
+                                    </span>
+                                </span>
+
+                                {{user.participant.displayName}}
+                            </td>
+                            <td *ngIf="isGroupAdmin">
+                                <a (click)="addUserToGroup(user.participant)"> <i
+                                        class="icon-user-unfollow icons font-2xl d-block" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                            <td *ngIf="isGroupAdmin">
+                                <input type="checkbox" value="" id="defaultCheck1"
+                                    (change)="makeAdmin($event, user.participant.id)" [checked]="user.isAdmin">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <h3 *ngIf="isGroupAdmin">Select participants</h3>
+                    <table *ngIf="isGroupAdmin" class="group-table">
+                        <tr>
+                            <th>Participant</th>
+                            <th>Status</th>
+                            <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                            </th>
+                        </tr>
+                        <tr *ngFor="let user of GroupUserList | dataFilter : groupManageForm.get('searchText').value">
+                            <ng-container *ngIf="!userSelected(user)">
+                                <td>
+                                    <span *ngIf="user.avtar">
+                                        <ngx-avatar class="avatar" (clickOnAvatar)="openProfile(user,i)"
+                                            name="{{user.ShortName?user.ShortName:user.displayName}}"
+                                            src="{{user.avtar}}" size="30" textSizeRatio="2.5" [round]="true"
+                                            tooltip="{{user.email?user.email:user.displayName}}" bgColor='#2f4f4f'>
+                                        </ngx-avatar>
+                                    </span>
+                                    <span *ngIf="!user.avtar">
+                                        <span *ngIf="getNonAvtarUser(user,GroupUserList,true,false)%2==0">
+                                            <ngx-avatar class="avatar" (clickOnAvatar)="openProfile(user,i)"
+                                                name="{{user.ShortName?user.ShortName:user.displayName}}"
+                                                src="{{user.avtar}}" size="30" textSizeRatio="2.5" [round]="true"
+                                                tooltip="{{user.email?user.email:user.displayName}}" bgColor='#72a2e0'>
+                                            </ngx-avatar>
+                                        </span>
+                                        <span *ngIf="getNonAvtarUser(user,GroupUserList,true,false)%2!=0">
+                                            <ngx-avatar class="avatar" (clickOnAvatar)="openProfile(user,i)"
+                                                name="{{user.ShortName?user.ShortName:user.displayName}}"
+                                                src="{{user.avtar}}" size="30" textSizeRatio="2.5" [round]="true"
+                                                tooltip="{{user.email?user.email:user.displayName}}" bgColor='#2c3e50'>
+                                            </ngx-avatar>
+                                        </span>
+                                    </span>
+                                    {{user.displayName}}
+                                </td>
+                                <td>
+                                    <a (click)="addUserToGroup(user)"> <i
+                                            class="icon-user-follow icons font-2xl d-block" aria-hidden="true"></i>
+                                    </a>
+                                </td>
+                                <td></td>
+                            </ng-container>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+
+
+            <div class="modal-footer" *ngIf="isGroupAdmin">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <span style="padding-top:5px">
+                                    Group:
+                                </span>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control"
+                                    [ngClass]="{'error':!(groupManageForm.get('groupName').valid) && isSubmit  }"
+                                    formControlName="groupName" placeholder="Enter group name"
+                                    [attr.disabled]="isGroupAdmin ? null : ''">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-blue pull-right" (click)="saveGroup()">Save Group</button>
+                    <!-- <button type="button" [attr.disabled]="!groupManageForm.value.id" class="btn btn-secondary"
+                        (click)="closegroupChatComponentModal()">Cancel</button> -->
+                    <!-- <div class="col-md-4">
+                        
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #userProfileModel>
+    <div class="alert-box" style="background-color: beige; margin-left:-32px;">
+        <div class="modal-header">
+            <h4 class="modal-title pull-left"><b>User Profile</b></h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="closeuserProfileModel()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body" style="margin-bottom: 25px;">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <ngx-avatar class="avatar custom-avtar"
+                                name="{{selectedParticipent?.user.ShortName?selectedParticipent?.user.ShortName:selectedParticipent?.user.displayName}}"
+                                src="{{selectedParticipent?.user.avtar}}" size="100" textSizeRatio="2.5" [round]="true"
+                                bgColor='#72a2e0'>
+                            </ngx-avatar>
+                        </div>
+                        <div class="col-md-9">
+                            <table class="group-table" style="height: 103%;">
+                                <tbody>
+                                    <tr>
+                                        <th>Name </th>
+                                        <th>:</th>
+                                        <td>{{selectedParticipent?.user.displayName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Roles</th>
+                                        <th>:</th>
+                                        <td>
+                                            {{filterRole(selectedParticipent?.Roles)}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Domain </th>
+                                        <th>:</th>
+                                        <td>
+                                            {{selectedParticipent?.domainName}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email</th>
+                                        <th>:</th>
+                                        <td>
+                                            {{selectedParticipent?.EmailID}}
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

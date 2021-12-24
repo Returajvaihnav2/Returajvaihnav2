@@ -1,0 +1,68 @@
+$brand-blue-color-600: #252D4E;
+$brand-blue-color-500: #2D2A81;
+$brand-blue-color-400: #3C38AB;
+$dark-color-500: #1C1C28;
+$dark-color-400: #28293D;
+$dark-color-300: #555770;
+$dark-color-200: #8E90A6;
+$dark-color-100: #CECFDE;
+$dark-color-50: #E7E7EE;
+$yellow-color-500: #F3C73C;
+$yellow-color-hover:#f3c73c26;
+$yellow-color-300: #FBEEC3;
+$light-color-400: #CDCEDA;
+$light-color-300: #DFDFE7;
+$light-color-100: #F5F5F9;
+$light-color-50: #FFFFFF;
+$white-color: white;
+$red-color-500: #E53535;
+$red-color-400: #F64949;
+$red-color-100: #FFDBDB;
+$green-color-500: #05A660;
+$green-color-100: #DCFCEC;
+$purple-color-500: #4C0099;
+$orange-color-500: #F28100;
+$blue-color-500: #004FC4;
+$input-radius:4px;
+//______________________________________________
+$active-bg-color: #E5E6F5;
+$app-background-color: $light-color-100;
+$border-color: $dark-color-50;
+$input-text-color: $dark-color-300;
+$input-border-color: $light-color-400;
+$primary-font-family: 'Open Sans',
+sans-serif;
+// shadows
+$shadow4: 0px 2px 4px rgba(8, 35, 48, 0.06);
+$shadow8: 0px 4px 8px rgba(8, 35, 48, 0.15);
+$shadow16: 0px 6px 16px rgba(8, 35, 48, 0.15);
+$shadow20: 0px 4px 20px rgba(0, 0, 0, 0.05);
+$shadow4-reverse: 0px -2px 4px rgba(8, 35, 48, 0.06);
+// resolution
+$tablet-width: 1200px;
+$mobile-width: 767px;
+$small-mobile-width: 600px;
+:export {
+    brandBlueColor500: $brand-blue-color-500;
+    blueColor500: $blue-color-500;
+    redColor400: $red-color-400;
+    greenColor500: $green-color-500;
+    inputTextColor: $input-text-color;
+    inputBorderColor: $input-border-color;
+    yellowColor500: $yellow-color-500;
+    orangeColor500: $orange-color-500;
+    primaryFontFamily: $primary-font-family;
+    popupShadow: $shadow16;
+    darkColor500: $dark-color-500;
+    darkColor300: $dark-color-300;
+    lightColor300: $light-color-300;
+    whiteColor: $white-color;
+    lightColor100: $light-color-100;
+    lightColor50: $light-color-50;
+    activeBgColor: $active-bg-color;
+    borderColor: $border-color;
+    tabletWidth: $tablet-width;
+    mobileWidth: $mobile-width;
+    smallMobileWidth: $small-mobile-width;
+    purpleColor500: $purple-color-500;
+}

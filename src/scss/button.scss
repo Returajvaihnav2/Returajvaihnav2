@@ -1,0 +1,75 @@
+// src/app/comp-a/comp-a.theme.scss
+@import '~@angular/material/theming';
+@mixin customButtoncreate($theme) {
+    // define mixin
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent); // retrieve color def
+    button {
+        // apply theme to component
+        &.mat-accent {
+            background-color: mat-color($accent) !important;
+            color: mat-color($accent, 50) !important;
+        }
+        &.mat-primary {
+            background-color: mat-color($primary) !important;
+            color: mat-color($primary, 50) !important;
+        }
+        // color: $dark-color-500;
+        border-color: mat-color($primary, A400);
+        min-height: '40px';
+        font-size: '12px';
+        font-weight: '700';
+        letter-spacing: '0.4px';
+        // font: {
+        //     family: mat-font-family($config, body-1);
+        //     size: mat-font-size($config, body-1);
+        //     weight: mat-font-weight($config, body-1);
+        //   }
+        &.mat-stroked-button {
+            &:hover {
+                color: white !important;
+                background-color:  mat-color($primary, A400) !important;
+            }
+            &:disabled{
+                background-Color: $light-color-300 !important;
+                color: $light-color-50 !important;
+            }
+        }
+        &.mat-raised-button {
+            // &:hover {
+            //     color: white !important;
+            //     background-color: black !important;
+            // }
+        }
+        &.mat-flat-button {
+            // &:hover {
+            //     color: white !important;
+            //     background-color: black !important;
+            // }
+        }
+        &.mat-stroked-button {
+            // &:hover {
+            //     color: white !important;
+            //     background-color: black !important;
+            // }
+        }
+        &.mat-icon-button {
+            // &:hover {
+            //     color: white !important;
+            //     background-color: black !important;
+            // }
+        }
+        &.mat-fab {
+            // &:hover {
+            //     color: white !important;
+            //     background-color: black !important;
+            // }
+        }
+        &.mat-mini-fab {
+            // &:hover {
+            //     color: white !important;
+            //     background-color: black !important;
+            // }
+        }
+    }
+}

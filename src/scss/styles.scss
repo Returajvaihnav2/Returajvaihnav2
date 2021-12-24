@@ -1,0 +1,100 @@
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    //font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.red-snackbar {
+    background: #F44336 !important;
+    color: white;
+}
+
+.red-snackbar button {
+    background-color: #F44336 !important;
+    color: white !important;
+    border: none;
+}
+
+.badge {
+    top: -8px;
+    right: -10px;
+    border-radius: 10px;
+    padding: 3px 7px;
+}
+
+.Statuscircle {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 4px;
+}
+
+.bg-success {
+    //   background-color: #4dbd74!important;
+    .Statuscircle {
+        background: #05A660 !important;
+    }
+}
+
+.bg-warning {
+    // background-color: #ffc107!important;
+    .Statuscircle {
+        background: #E53535 !important;
+    }
+}
+
+.bg-primary {
+    //background-color: #20a8d8!important;
+    .Statuscircle {
+        background: #3C38AB !important;
+    }
+}
+
+.hide {
+    display: none;
+}
+
+.mat-tooltip {
+    // color: yellow !important;
+    // background-color: black !important;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 12px;
+    position: static;
+    left: 0px;
+    top: 8.25px;
+    /* Dark / 300 */
+    background: #555770;
+    border-radius: 4px;
+    /* Inside Auto Layout */
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    margin: 0px 0px;
+    position: static;
+    left: 12px;
+    top: 8px;
+    /* Body 2 */
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 140%;
+    /* or 17px */
+    display: flex;
+    align-items: flex-end;
+    /* Light / 50 */
+    color: #FFFFFF;
+    /* Inside Auto Layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin: 0px 10px;
+}

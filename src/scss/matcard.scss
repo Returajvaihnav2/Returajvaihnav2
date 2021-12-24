@@ -1,0 +1,67 @@
+//
+// src/app/comp-a/comp-a.theme.scss
+@import '~@angular/material/theming';
+@mixin matcard($theme) {
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent); // retrieve color def  
+    $warn: map-get($theme, warn); // retrieve color def  
+    mat-card {
+        &.box {
+            position: relative;
+            background: $light-color-50;
+            border: 1px solid $light-color-50;
+            box-sizing: border-box;
+            width: 193px;
+            height: 86px;
+            margin: 5px;
+            border-left: 5px solid mat-color($primary) !important;
+            cursor: pointer;
+            &.accent {
+                border-left: 5px solid $green-color-500 !important;
+            }
+            &.warn {
+                border-left: 5px solid mat-color($warn) !important;
+            }
+            &.box-card-disable {
+                border-left: 5px solid $dark-color-300 !important;
+                cursor: no-drop;
+            }
+            .count {
+                position: absolute;
+                width: 45px;
+                height: 35px;
+                position: absolute;
+                width: 45px;
+                height: 35px;
+                font-family: $primary-font-family;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 26px;
+                line-height: 35px;
+                color: $dark-color-300;
+                background: $light-color-100;
+                align-items: center;
+                text-align: center;
+                top: calc(15% - 17px/2 + 20.5px)
+            }
+            .details {
+                position: absolute;
+                width: 100px;
+                height: 17px;
+                left: 68px;
+                top: calc(18% - 17px/2 + 18.5px);
+                font-family: $primary-font-family;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 12px;
+                line-height: 140%;
+                color: $dark-color-300;
+            }
+            mat-select {
+                position: absolute;
+                right: 17px;
+                width: 10px;
+            }
+        }
+    }
+}

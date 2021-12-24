@@ -1,0 +1,39 @@
+//
+// src/app/comp-a/comp-a.theme.scss
+@import '~@angular/material/theming';
+@mixin matdrawer($theme) {
+    // define mixin
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent); // retrieve color def
+    mat-drawer {
+        background-color: mat-color($primary) !important;
+        color: mat-color($primary, 50) !important;
+        mat-list-item {
+            .mat-list-item-content {
+                flex-direction: row !important;
+                align-items: center !important;
+                box-sizing: border-box !important;
+                /* padding: 0px 9px; */
+                position: relative !important;
+                height: inherit !important;
+                padding: 10px 8px !important;
+                mat-icon {
+                    left: 16.8%;
+                    right: 16.8%;
+                    top: 9.77%;
+                    bottom: 9.76%;
+                }
+                &:hover {
+                    background: $yellow-color-hover !important;
+                    color: mat-color($accent) !important;
+                    border-left: 2px solid mat-color($accent) !important;
+                }
+            }
+            // &:hover {
+            //     background: $yellow-color-hover !important;
+            //     color: mat-color($accent) !important;
+            //     border-left: 2px solid mat-color($accent) !important;
+            // }
+        }
+    }
+}

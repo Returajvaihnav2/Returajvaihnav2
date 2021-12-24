@@ -1,0 +1,58 @@
+.box-devider-hr {
+    height: 208px;
+    top: 16px;
+    position: relative;
+    z-index: -999;
+}
+
+.box-devider-vr {
+    width: 90%;
+    margin: 0 5%;
+    z-index: -999;
+}
+
+.center {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    vertical-align: middle;
+}
+
+table {
+    width: 100%;
+}
+
+.mat-grid-list {
+    padding-bottom: 50px !important;
+    padding-top: 3%;
+}
+
+.DealoverView {
+    width: 86%;
+    margin: 0 6%;
+    float: left;
+}
+
+// .card-drp .mat-select-placeholder {
+//     visibility: hidden !important;
+// }
+// .card-drp .mat-select-value-text {
+//     visibility: hidden !important;
+// }
+// .card-drp .mat-select-value {
+//     visibility: hidden !important;
+// }
+// .card-drp.mat-select {
+//     top: 0px;
+//     position: absolute !important;
+// }
+// .card-drp .mat-select-trigger {
+//     //  position: absolute  !important;
+//     display: block !important;
+// }
+// .card-drp .mat-select-value-text {
+//     visibility: hidden !important;
+// }
+// .card-drp .mat-select-arrow-wrapper {
+//     visibility: hidden !important;
+// }

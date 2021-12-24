@@ -1,0 +1,427 @@
+#ng-chat-people{
+    width:300px
+}
+.custom-typing-main-loader{
+    padding-left: 20px !important;
+    span{
+        width: 10px !important;
+        height: 10px !important;
+        background-color: #fff !important;
+    }
+}
+
+.custom-typing-user-list{
+    padding-left: 3px !important;
+    span{
+        width: 10px !important;
+        height: 10px !important;
+        background-color: darkgray !important;
+    }
+}
+
+.unreadbgcolor
+{
+    color: white !important;
+    background-color: darkorchid !important;
+}
+
+.unread-user-bgcolor
+{
+    color: white !important;
+background-color: red !important;
+}
+
+.unRead-counts{
+    font-weight: bold !important;
+}
+
+.select-chat-status{
+    background-color: #098E7E !important;
+}
+
+.padding-top-15px{
+    margin-top: 15px !important;
+}
+
+.received-chat-message-container,.sent-chat-message-container{
+    width: auto !important;
+    max-width: 232px !important;
+   
+}
+.received-chat-message-container{
+   // border-radius: 0px 6px 6px 0px !important;
+    border-radius: 0px 6px 6px 6px !important;
+}
+.sent-chat-message-container{
+    //border-radius: 6px 0px 0px 6px !important;
+    border-radius: 6px 6px 0px 6px !important;
+}
+
+.message-sent-date,.message-receive-date{
+    width: auto !important;   
+    // top: 6px;
+    // left: 6px;
+    position: relative;
+    color: rgba(0, 0, 0, 0.43) !important;
+    top: 6px;
+    left: 3px;
+ 
+}
+.ng-chat-window .ng-chat-messages .ng-chat-message.ng-chat-message-received > div.received-chat-message-container{
+    border-style: none;
+    background-color: #63c2de45;
+}
+.light-theme .sent-chat-message-container, .light-theme .file-message-container{
+    background-color:#e3e3e37d;
+    border-style: none;
+
+}
+
+// .message-sent-date{
+//     top:9px;
+// }
+
+.chat-max-min{
+    // margin-left: 45%;
+    // margin-right: 10px;
+    display: inline-block;
+    position: absolute;
+    right: 20%;
+}
+.open-close-disp-flex{
+    display: flex !important;
+}
+.right-bottom-chat-status{
+    position: absolute;
+    left: 33px;
+    margin-top: 23px;
+}
+
+.pin-min-max{
+    display: inline-block;
+    position: absolute;
+    right: 11%;
+}
+
+.pinned-icon{
+    color: yellow;
+}
+
+.unpinned-icon{
+    pointer-events: none;
+    color: gray;
+}
+
+.reject-message{
+    color: white !important;
+    font-weight: bolder;
+}
+
+.status-cust-margin{
+    margin: 15px 0px 0px 85px;
+}
+
+.width-55{
+   width: 55% !important;
+}  
+// // //#region "Online User List"
+// .online-user{    
+//              margin: 5px -2px 0px 4px;        
+// }
+
+
+// .online-user ul li  .ng-chat-participant-status {   
+//     margin-top: 0px !important;    
+//     position: relative;   
+//     top: 10px;  
+//     left: -13px;
+//     cursor: pointer;
+// }
+
+
+
+// .btnroot{
+//     float: left;
+//     padding-top: 9px;
+//     padding-bottom: 9px;
+//     text-align: center;
+//     font-size: x-large;
+//     padding-left: 4px;
+//     padding-right: 0px;
+// }
+// .btnright,.btnleft{
+//        color:silver;
+// }
+// .info-widget {
+//     width: 17%;
+//     display: inline-block;
+//   }
+
+//   .middle {
+//     float: left;
+//     width: 84%;
+//     overflow: auto;
+//     white-space: nowrap;
+//     padding: 0px 0px 0px 9px;
+//      margin-top: 4px;
+//     text-align:center;
+//   }
+
+// ul.middle::-webkit-scrollbar{
+//     background: lightyellow;
+//     height: 11px;
+//     width: 11px;
+//     display: none;
+// }
+// ul.middle::-webkit-scrollbar-track {
+//     display: none;
+//     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+//     border-radius: 10px;
+// }
+// ul.middle::-webkit-scrollbar-thumb {
+//     border-radius: 10px;
+//     display: none;
+//     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+// }
+// // //endregion
+
+// //#region "scroll design"
+// ul.ng-chat-users::-webkit-scrollbar{
+//     background: lightyellow;
+//     height: 11px;
+//     width: 11px;
+//     }
+// ::-webkit-scrollbar-track {
+//     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+//     border-radius: 10px;
+// }
+// ::-webkit-scrollbar-thumb {
+//     border-radius: 10px;
+//     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+// }
+// .title{
+//     font-size: 9px;
+//     position: absolute;
+//     left: 11px;
+//     top: 68px;
+// }
+// .title-top{
+//     top: 105px;
+// }
+//endregion
+
+.uploadFile{
+    .message-sent-date,.message-receive-date{
+        width: auto !important;   
+        top: 0px !important;
+        left: 0px !important;
+        position: relative;
+        color: rgba(0, 0, 0, 0.43) !important;
+     
+    }    
+}
+
+.ng-chat-window .ng-chat-messages .ng-chat-message .file-message-container.received {
+    float: left;
+     margin-left: 0px !important;
+    width: 208px;
+}
+// .ng-chat-window .ng-chat-messages .ng-chat-message .file-message-container > .file-details span {
+//  text-overflow: unset !important; 
+//      overflow:  unset !important;    
+//     }
+span.file-message-title {
+    padding-left: 21px;
+    display: inline-block; 
+}
+.file-message-size{
+    font-size: 11px;
+    color: #808080cf;
+    padding-left: 21px;
+}
+.linkbox{    
+cursor: pointer;
+}
+
+.file-message-title:hover{
+    text-decoration: underline;
+}
+.addGroup{
+    top: 0px;
+    left: 155px;
+    position: relative;
+    bottom: 16px;
+    border-radius: 50%;
+    background:#277976d9;
+    border: 1px solid #277976d9;
+    padding: 6px;
+    padding-top: 8px;
+    z-index:9999;
+    cursor:pointer;
+   
+    
+}
+.addGroup:hover{
+   // background: white;
+   background:#277976d9;
+}
+.addGroup .fa{
+    color:white;
+}
+.ng-chat-participant-name{
+    font-size: 0.5em;
+    position: relative;
+    left: 12px;
+    top: 7px;
+}
+
+.operator-name {
+    position: relative;
+    left: 36px;
+    top: -20px;
+    font-size: 12px;
+    color: #0a0a0a8c;
+    .headerTCID{
+        top:0px;
+    }
+}
+.GroupUserWindow{
+
+.error{
+    border:1px solid red !important;
+    color:red;
+}
+select.ng-invalid.ng-touched, input.ng-invalid.ng-touched {
+    border: 1px solid #e4e7ea;
+}
+}
+
+
+    
+    
+    
+.spanuserinfo{  
+    border:1px solid #e4e7ea;
+}
+.userremove{
+    border:1px solid #e4e7ea;
+}
+.ng-chat-title-visibility-toggle-area{
+.fa-pencil{
+    position: relative;
+    left: 82px;
+    font-size: 18px;
+    top: 1px;
+}
+}
+
+.headerTCID{
+    position: absolute;
+    top: 6px;
+    left: 0px;
+    font-size: 10px;
+    width: 170px !important;
+.sk-three-bounce{
+    position: relative;
+    top: 2px;
+}
+}
+.chatHeadertitle{
+    top: -7px;
+    position: relative;
+
+}
+.headerdisplayName{
+    left: -5px;
+    position: relative;
+}
+
+.userStatus{
+       position: relative;
+    top: -8px;
+    left: -10px;
+}
+
+.Grouplink{
+    cursor: pointer;
+}
+.Grouplink:hover{
+text-decoration: underline;
+color:rgb(154, 154, 163);
+}
+
+.ng-chat-friends-list-container{
+    .chatHeadertitle{
+         top:-3px;
+         .headerdisplayName{    
+            left :0px;
+        }   
+    }
+
+}
+
+
+.operator-name{   
+    .headerTCID{
+        position: relative;
+    }
+    .custom-typing-user-list {
+               position: relative;
+    left: 0px;
+    top: 2px;
+
+    }
+    
+    .sk-three-bounce {
+         margin: unset;
+      
+    }
+}
+
+.leave-group-button{
+    width: 110px;
+    margin-left: 50px;
+}
+
+.add-Group-user{
+       top: -9px;
+    right: 30%;
+    position: absolute;
+    right: 29%;
+}
+
+.chat-email {
+    text-align: center;
+    border: 1px solid;
+}
+
+.custom-avtar{
+    display: inline-table
+}
+.avatar{
+    cursor: pointer ! important;
+}
+.avatar-icon{
+    top: 46px;
+    left: -8px;
+}
+
+.group-box
+{
+    .modal-body {
+        .modal-footer{
+            display: block;
+            }
+    }
+}
+
+table.group-table{
+    width: 100%;
+    tr{
+        td,th {
+            min-width: 44px !important;
+            max-width: 120px !important;
+
+        }
+    }
+}
