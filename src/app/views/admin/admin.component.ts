@@ -1,30 +1,38 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
 import { BrowserStorageService } from 'src/app/utility/browser-storage.service';
 import { UtilityProvider } from 'src/app/utility/utility';
-
+import{MediaObserver,MediaChange } from '@angular/flex-layout'
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss'],
 
 })
-export class AdminComponent implements OnInit {
+export class AdminComponent implements OnInit,OnDestroy {
   
   isExpanded=false;
   UserName:any;
   UserID:any;
   UserEMailID:any;
   UserRoles:any;
+  mediaSub:Subscription;
+  deviceSx:boolean;
   constructor(public utilityProvider:UtilityProvider,
     public userService: UserService,
     public browserStorageService: BrowserStorageService,
     private router: Router,
+    public mediaObserver:MediaObserver
     ) { }
+  
 
   ngOnInit(): void {
+    this.mediaSub=this.mediaObserver.media$.subscribe((result:MediaChange)=>{
+    this.deviceSx=(result.mqAlias=='xs');
+    })
     this.UserName=this.browserStorageService.getLocalStorageItem('fullName');
     this.UserID=this.browserStorageService.getLocalStorageItem('userId');
     this.UserEMailID=this.browserStorageService.getLocalStorageItem('emailId');
@@ -38,6 +46,9 @@ export class AdminComponent implements OnInit {
       console.log(this.userService.userRoles);
     }
     
+  }
+  ngOnDestroy(): void {
+    this.mediaSub.unsubscribe();
   }
 
   ExpandMenu(){

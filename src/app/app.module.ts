@@ -20,8 +20,6 @@ import { HostService } from './services/host/host.service';
 import { WINDOW_PROVIDERS } from './services/host/window.provider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PagenotfoundComponent } from './views/pagenotfound/pagenotfound.component';
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +36,8 @@ import { PagenotfoundComponent } from './views/pagenotfound/pagenotfound.compone
     ModalModule.forRoot(),
     TranslateModule.forRoot({
       loader: { provide: TranslateLoader, useClass: TranslateLoaderService }
-    }),
+    })
+    
   ],
   providers: [ ApiService,
     AlfrescoMiddlewareApiService,

@@ -16,6 +16,9 @@
     text-align: center;
     justify-content: center;
     vertical-align: middle;
+    margin-right: 16px;
+    padding-top: 10px;
+    margin-bottom: 0px;
 }
 
 table {
@@ -56,3 +59,79 @@ table {
 // .card-drp .mat-select-arrow-wrapper {
 //     visibility: hidden !important;
 // }
+.card {
+    display: block;
+    padding: 32px;
+    border: 1px solid black;
+    border-radius: 8px;
+}
+
+.header {
+    background-color: #e3e3e3;
+}
+
+.side {
+    background-color: #e3e3ff;
+}
+
+.content {
+    background-color: #e3ffe3;
+}
+
+.footer {
+    background-color: #ffe3e3;
+}
+
+.cardList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+
+/* Column Gap */
+
+.cardList>* {
+    box-sizing: border-box;
+}
+
+.cardList>*:not(:last-child) {
+    margin-right: 32px;
+}
+
+
+/* Item sizing */
+
+.cardListItem {
+    flex: 0 1 calc(33.3% - 32px);
+}
+
+
+/* medium size viewport */
+
+@media screen and (max-width: 959px) {
+    /* Column Gap */
+    .cardList>*:not(:last-child) {
+        margin-right: 32px;
+    }
+    /* Item sizing */
+    .cardListItem {
+        flex: 0 1 calc(50% - 32px);
+    }
+}
+
+
+/* small size viewport */
+
+@media screen and (max-width: 599px) {
+    .cardList {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+    .cardList>*:not(:last-child) {
+        margin-right: unset;
+        margin-bottom: 32px;
+    }
+}

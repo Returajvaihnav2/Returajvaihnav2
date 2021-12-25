@@ -8,6 +8,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { WhatsNewComponent } from './whats-new/whats-new.component';
 import { PartialviewsModule } from 'src/app/partialviews/partialviews.module';
 import { DataFilterPipeModule } from 'src/app/pipes/data-filter-pipe.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 const routes: Routes = [
   {path: '', component: AdminComponent,
   children: [
@@ -46,7 +47,8 @@ const routes: Routes = [
     MaterialRefModule,
     MatNativeDateModule,
     PartialviewsModule,
-    DataFilterPipeModule
+    DataFilterPipeModule,
+    FlexLayoutModule
   ]
   
 })
