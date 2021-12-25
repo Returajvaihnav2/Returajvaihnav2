@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
     private utility: UtilityProvider,
     private authService: AuthService,
     public hostService: HostService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
     ) {
       let params = this.activatedRoute.snapshot.queryParams;
       if (params['redirectURL']) {
@@ -58,6 +58,7 @@ export class LoginComponent implements OnInit {
 
     
 ngOnInit(): void {
+  if(!this.authService.isAuthenticated()){
     this.loginForm = this.formBuilder.group({
       userName: ['',
       Validators.compose([Validators.required])],
@@ -73,6 +74,9 @@ ngOnInit(): void {
     this.hostService.getBackground().then((data) => {
       this.background = data;
     });
+  }else{
+    this.router.navigate(['admin/dashboard/' + new Date().getTime()])
+  }
 }
 
 isTritexDomain() {

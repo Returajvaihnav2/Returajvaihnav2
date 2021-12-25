@@ -1172,7 +1172,7 @@ export class UserService {
           this.navMenuItems = userData.result.menuModel;
           this.userRoles = userData.result.userRole;
           this.browserStorageService.setSessionStorageItem('UserRoleNames',JSON.stringify(this.userRoles));
-          return resolve(true);
+          return resolve(userData);
       });
     });
   }

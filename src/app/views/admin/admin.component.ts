@@ -39,14 +39,15 @@ export class AdminComponent implements OnInit,OnDestroy {
     this.UserID=this.browserStorageService.getLocalStorageItem('userId');
     this.UserEMailID=this.browserStorageService.getLocalStorageItem('emailId');
     this.UserRoles=JSON.parse(this.browserStorageService.getSessionStorageItem('UserRoleNames'));    
-    if(!(this.userService.userRoles&& this.userService.userRoles.length>0)){
-      this.getuserData().then((res)=>{
-        console.log(this.userService.userRoles);
-      });        
+    // if(!(this.userService.userRoles&& this.userService.userRoles.length>0)){
+    //   this.getuserData().then((res)=>{
+    //     console.log(this.userService.userRoles);
+    //   });        
     
-    }else{
-      console.log(this.userService.userRoles);
-    }
+    // }else{
+    //   console.log(this.userService.userRoles);
+    // }
+    console.log(this.userService.userRoles);
     
   }
   ngOnDestroy(): void {

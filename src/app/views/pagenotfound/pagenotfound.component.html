@@ -1,1 +1,11 @@
-<p>pagenotfound works!</p>
+<div class="app flex-row custom-page-oops" [ngStyle]="{'background-image': getUrl()}">
+    <div class="container">
+        <div class="row custom-page-oops-wraper">
+            <div class="col-lg-6 col-md-10 col-sm-10 col-xs-12 custom-page-oops-inner">
+                <!-- <h1>401</h1> -->
+                <h4>Access Denied!</h4>
+                <button (click)="redirectToDashboard()">Go to Dashboard</button>
+            </div>
+        </div>
+    </div>
+</div>

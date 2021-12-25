@@ -38,13 +38,18 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
                     }
                 } else {
                     // this.userService.getUserDetailsCustom(this.alfAuthService.getEcmUsername())
+                    if(!this.browserStorageService.getSessionStorageItem('UserRoleNames')){
                     this.userService.getuserData('RolePage',this.browserStorageService.getLocalStorageItem('userId'))
                         .then((res: any) => {
-                            this.userService.userInfo = res;
-                            this.userService.passChangeReq = res.resetPassword;
-                            this.userService.navMenuItems = res.newMenus;
-                            this.userService.userRoles = res.assignedRoles;
+                            this.userService.userInfo = res.result;
+                            this.userService.passChangeReq = res.result.resetPassword;
+                            this.userService.navMenuItems = res.result.menuModel;
+                            this.userService.userRoles = res.result.userRole;
                             this.browserStorageService.setSessionStorageItem('UserRoleNames', this.userService.userRoles.join());
+                            this.browserStorageService.setLocalStorageItem('userId', res.result.userModel.UserID);
+                            this.browserStorageService.setLocalStorageItem('emailId', res.result.userModel.EmailID);
+                            this.browserStorageService.setLocalStorageItem('fullName',res.result.userModel.FullName);
+                            this.browserStorageService.setSessionStorageItem('UserRoleNames',JSON.stringify(this.userService.userRoles));
 
                             if (this.userService.passChangeReq === 1) {
                                 this.router.navigate(['auth', 'reset-password', 'force']);
@@ -62,6 +67,22 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
                             this.redirectToUnAuthPage();
                             return resolve(true);
                         });
+                    }else{
+                        if (this.userService.passChangeReq === 1) {
+                            this.router.navigate(['auth', 'reset-password', 'force']);
+                        }
+
+                        const isAccessP = this.setRouteAccess(url);
+                        if (isAccessP) {
+                            return resolve(isAccessP);
+                        } else {
+                            if(url.includes('/admin/dashboard/')){
+                                return resolve(true);
+                            }
+                            this.redirectToUnAuthPage();
+                            
+                        }
+                    }
                 }
             } else {
                 // if (url && (url.includes('mail-redirect'))) {
