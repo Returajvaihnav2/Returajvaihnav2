@@ -39,11 +39,11 @@ export class AuthService {
         }
 
         if (this.isAuthenticated() && navigator.onLine) {
-            this.alfAuthuthService.logout().subscribe(() => {
-                this.toggleSpinner(false);
-            }, err => {
-                this.toggleSpinner(false);
-            });
+            // this.alfAuthuthService.logout().subscribe(() => {
+            //     this.toggleSpinner(false);
+            // }, err => {
+            //     this.toggleSpinner(false);
+            // });
             this.setValues();
         } else {
             this.setValues();
@@ -90,7 +90,7 @@ export class AuthService {
     isAuthenticated(): boolean {
         const TritexToken: string = this.browserStorageService.getLocalStorageItem('TritexToken');
         let isLoggedIn = false;
-        if (TritexToken && TritexToken.length && this.alfAuthuthService.isLoggedIn()) {
+        if (TritexToken && TritexToken.length) {
             isLoggedIn = true;
         }
         return isLoggedIn;

@@ -20,6 +20,8 @@ import { HostService } from './services/host/host.service';
 import { WINDOW_PROVIDERS } from './services/host/window.provider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PagenotfoundComponent } from './views/pagenotfound/pagenotfound.component';
+import { AuthGuardService } from './services/authentication/auth-guard.service';
+import { MaterialRefModule } from './material.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +38,8 @@ import { PagenotfoundComponent } from './views/pagenotfound/pagenotfound.compone
     ModalModule.forRoot(),
     TranslateModule.forRoot({
       loader: { provide: TranslateLoader, useClass: TranslateLoaderService }
-    })
+    }),
+    MaterialRefModule,
     
   ],
   providers: [ ApiService,
@@ -49,7 +52,7 @@ import { PagenotfoundComponent } from './views/pagenotfound/pagenotfound.compone
     AuthService,
     HostService,
     WINDOW_PROVIDERS,
-    //MaterialRefModule
+      AuthGuardService
       ],
   bootstrap: [AppComponent]
 })

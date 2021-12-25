@@ -4,17 +4,19 @@ import { HttpErrorHandler } from './http-error-handler.service';
 import { Router } from '@angular/router';
 import { SpinnerService } from './spinner.service';
 import { CookieService } from 'ngx-cookie-service';
+import { BrowserStorageService } from '../utility/browser-storage.service';
 
 @Injectable()
 
 export class AlfrescoMiddlewareApiService {
-
+  TritexToken:string;
   constructor(private spinner: SpinnerService,
     public httpErrorHandler: HttpErrorHandler,
     private alfAuthuthService: AuthenticationService,
     private apiService: AlfrescoApiService,
     private router: Router,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private browserStorageService: BrowserStorageService,
   ) {
 
     // if (authSer.isLoggedIn()) {
@@ -28,10 +30,11 @@ export class AlfrescoMiddlewareApiService {
     // } else {
     //   this.authService.logout();
     // }
+    this.TritexToken = this.browserStorageService.getLocalStorageItem('TritexToken')
   }
 
   postWebscript(URL, data) {
-
+   
     if (!this.alfAuthuthService.isEcmLoggedIn()) {
       this.router.navigate(['/auth/login']);
       return;

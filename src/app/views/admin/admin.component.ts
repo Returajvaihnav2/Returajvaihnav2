@@ -6,6 +6,7 @@ import { BrowserStorageService } from 'src/app/utility/browser-storage.service';
 import { UtilityProvider } from 'src/app/utility/utility';
 import{MediaObserver,MediaChange } from '@angular/flex-layout'
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/authentication/auth.service';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -25,7 +26,8 @@ export class AdminComponent implements OnInit,OnDestroy {
     public userService: UserService,
     public browserStorageService: BrowserStorageService,
     private router: Router,
-    public mediaObserver:MediaObserver
+    public mediaObserver:MediaObserver,
+    public authService:AuthService
     ) { }
   
 
@@ -57,9 +59,10 @@ export class AdminComponent implements OnInit,OnDestroy {
 }
 
 LogOut(){
-  this.browserStorageService.clearLocalStorageItem();
-  this.browserStorageService.clearSessionStorage();
-  this.router.navigate(['auth/login/' + new Date().getTime()]);
+  // this.browserStorageService.clearLocalStorageItem();
+  // this.browserStorageService.clearSessionStorage();
+  // this.router.navigate(['auth/login/' + new Date().getTime()]);
+  this.authService.logout();
 }
 
 getuserData(){

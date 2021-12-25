@@ -63,14 +63,13 @@ ngOnInit(): void {
       Validators.compose([Validators.required])],
       password: ['', Validators.compose([Validators.required])]
     });
-   const domainId =this.browserStorageService.getLocalStorageItem('DomainID');
-   if(domainId==1){
-    this.logo ="../../../../../assets/img/viewer-logo.png";
-   }else{
+ 
     this.hostService.getLoginLogo().then((data) => {
+    
       this.logo = data;
+     this.logo ="../../../../../assets/img/viewer-logo.png";
     });
-  }
+  
     this.hostService.getBackground().then((data) => {
       this.background = data;
     });
@@ -79,8 +78,9 @@ ngOnInit(): void {
 isTritexDomain() {
   return this.hostService.getHostname() === 'tritexsolutions.com';
 }
+
 loginSuccess() {
-  const userDetails=this.getuserData();
+  const userDetails=this.userService.getuserData();
   Promise.all([userDetails])
     .then(() => {
       this.idle.watch();
@@ -104,21 +104,7 @@ loginSuccess() {
 
 }
 
-getuserData(){
-  return new Promise((resolve, reject) => {
-      this.userService.getTritexUserDetails('RolePage','BEC752B2-7D07-4BBD-83B4-AA7C8CC8844B').then(userData => {
-        this.userService.userInfo = userData.result;
-        this.browserStorageService.setLocalStorageItem('userId', userData.result.userModel.UserID);
-        this.browserStorageService.setLocalStorageItem('emailId', userData.result.userModel.EmailID);
-        this.browserStorageService.setLocalStorageItem('fullName',userData.result.userModel.FullName);
-        this.userService.passChangeReq = userData.result.resetPassword;
-        this.userService.navMenuItems = userData.result.menuModel;
-        this.userService.userRoles = userData.result.userRole;
-        this.browserStorageService.setSessionStorageItem('UserRoleNames',JSON.stringify(this.userService.userRoles));
-        return resolve(true);
-    });
-  });
-}
+
 
 getTritexToken(userData:any) {
   return new Promise((resolve, reject) => {

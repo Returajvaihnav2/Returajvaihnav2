@@ -1161,4 +1161,19 @@ export class UserService {
     });
   }
 
+  getuserData(flag='RolePage',userID='BEC752B2-7D07-4BBD-83B4-AA7C8CC8844B'){
+    return new Promise((resolve, reject) => {
+        this.getTritexUserDetails(flag,userID).then(userData => {
+          this.userInfo = userData.result;
+          this.browserStorageService.setLocalStorageItem('userId', userData.result.userModel.UserID);
+          this.browserStorageService.setLocalStorageItem('emailId', userData.result.userModel.EmailID);
+          this.browserStorageService.setLocalStorageItem('fullName',userData.result.userModel.FullName);
+          this.passChangeReq = userData.result.resetPassword;
+          this.navMenuItems = userData.result.menuModel;
+          this.userRoles = userData.result.userRole;
+          this.browserStorageService.setSessionStorageItem('UserRoleNames',JSON.stringify(this.userRoles));
+          return resolve(true);
+      });
+    });
+  }
 }

@@ -32,11 +32,13 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
                     if (isAccessP) {
                         return resolve(isAccessP);
                     } else {
+                        //here we define unauthorise page
                         this.redirectToUnAuthPage();
                         return resolve(true);
                     }
                 } else {
-                    this.userService.getUserDetailsCustom(this.alfAuthService.getEcmUsername())
+                    // this.userService.getUserDetailsCustom(this.alfAuthService.getEcmUsername())
+                    this.userService.getuserData('RolePage',this.browserStorageService.getLocalStorageItem('userId'))
                         .then((res: any) => {
                             this.userService.userInfo = res;
                             this.userService.passChangeReq = res.resetPassword;
@@ -127,10 +129,11 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
                     this.walk(obj.ChildMenus, url);
                 } else {
                     if (obj.isAccessible) {
-
                         if ((obj.defaultPage && url.includes(obj.defaultPage)) || this.isPage(obj.pages, url)) {
                             this.isAccess = true;
                         }
+                    }else{
+                        this.isAccess =url.includes('/admin/dashboard/');
                     }
                 }
             }

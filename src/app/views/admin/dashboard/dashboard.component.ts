@@ -261,6 +261,7 @@ export class DashboardComponent implements OnInit {
     this.DsTradeCount.AwaitingResponse = 0;
     this.DsTradeCount.NewRFQCounter = 0;
     const promises = [];
+    
     const Tradefast = this.dashBoardService.getTradeDashoboard('Tradefast', this.userId).then((res: any) => {
       if (res !== undefined) {
         res['result'].forEach(element => {
