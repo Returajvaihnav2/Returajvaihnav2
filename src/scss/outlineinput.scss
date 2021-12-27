@@ -7,28 +7,15 @@
     $accent: map-get($theme, accent); // retrieve color def
     //OutlinedInput
     mat-form-field {
-        
-        //width: 300px;
-        // background-color: mat-color($primary) !important;
-        // color: mat-color($primary, 50) !important;
-        //border-color: mat-color($primary, A400);
         font-Size: '14px';
         font-weight: '400';
         border-Color: $input-border-color !important;
         background-Color: 'white !important';
-        // .mat-form-field-outline{
-        // border: 1px solid $input-border-color;
-        // border-radius: $input-radius;
-        // }
-        //new added
-        .mat-form-field-infix{    
-            // border-bottom: 1px solid $input-border-color;       
+        .mat-form-field-infix {
             padding: 0.5em 0 0.6em 0 !important;
-            margin-top: -0.0625em !important; 
+            margin-top: -0.0625em !important;
             margin-bottom: 0.5rem !important;
-          
         }
-        //new added end
         &:hover .MuiOutlinedInput-notchedOutline {
             border-Color: $input-border-color;
         }
@@ -80,43 +67,5 @@
                 fontSize: '14px',
             }
         }
-        // &.mat-accent {
-        //     background-color: mat-color($accent) !important;
-        //     color: mat-color($accent, 50) !important;
-        // }
-        // &.mat-primary {
-        //     background-color: mat-color($primary) !important;
-        //     color: mat-color($primary, 50) !important;
-        // }
-        // &.mat-stroked-button {
-        //     background-color: red !important;
-        //     color: yellow !important;
-        // }
-        // &.mat-raised-button {
-        //     background-color: red !important;
-        //     color: yellow !important;
-        // }
-        // &.mat-flat-button {
-        //     background-color: silver !important;
-        //     color: gold !important;
-        // }
-        // &.mat-stroked-button {
-        //     &:hover {
-        //         color: white !important;
-        //         background-color: black !important;
-        //     }
-        // }
-        // &.mat-icon-button {
-        //     background-color: red !important;
-        //     color: yellow !important;
-        // }
-        // &.mat-fab {
-        //     background-color: pink !important;
-        //     color: black!important;
-        // }
-        // &.mat-mini-fab {
-        //     background-color: red !important;
-        //     color: yellow !important;
-        // }
     }
 }

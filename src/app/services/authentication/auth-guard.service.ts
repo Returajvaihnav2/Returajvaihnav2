@@ -37,8 +37,7 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
                         return resolve(true);
                     }
                 } else {
-                    // this.userService.getUserDetailsCustom(this.alfAuthService.getEcmUsername())
-                    if(!this.browserStorageService.getSessionStorageItem('UserRoleNames')){
+                    // this.userService.getUserDetailsCustom(this.alfAuthService.getEcmUsername())                   
                     this.userService.getuserData('RolePage',this.browserStorageService.getLocalStorageItem('userId'))
                         .then((res: any) => {
                             this.userService.userInfo = res.result;
@@ -66,23 +65,7 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
                         .catch(err => {
                             this.redirectToUnAuthPage();
                             return resolve(true);
-                        });
-                    }else{
-                        if (this.userService.passChangeReq === 1) {
-                            this.router.navigate(['auth', 'reset-password', 'force']);
-                        }
-
-                        const isAccessP = this.setRouteAccess(url);
-                        if (isAccessP) {
-                            return resolve(isAccessP);
-                        } else {
-                            if(url.includes('/admin/dashboard/')){
-                                return resolve(true);
-                            }
-                            this.redirectToUnAuthPage();
-                            
-                        }
-                    }
+                        });                   
                 }
             } else {
                 // if (url && (url.includes('mail-redirect'))) {

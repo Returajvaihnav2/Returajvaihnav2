@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
 import { BrowserStorageService } from 'src/app/utility/browser-storage.service';
@@ -7,6 +7,7 @@ import { UtilityProvider } from 'src/app/utility/utility';
 import{MediaObserver,MediaChange } from '@angular/flex-layout'
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/authentication/auth.service';
+import { NavService } from 'src/app/services/menu/nav.service';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -14,7 +15,7 @@ import { AuthService } from 'src/app/services/authentication/auth.service';
 
 })
 export class AdminComponent implements OnInit,OnDestroy {
-  
+  @ViewChild('appDrawer') appDrawer: ElementRef;
   isExpanded=false;
   UserName:any;
   UserID:any;
@@ -22,12 +23,14 @@ export class AdminComponent implements OnInit,OnDestroy {
   UserRoles:any;
   mediaSub:Subscription;
   deviceSx:boolean;
+  navItems:any=[];
   constructor(public utilityProvider:UtilityProvider,
     public userService: UserService,
     public browserStorageService: BrowserStorageService,
     private router: Router,
     public mediaObserver:MediaObserver,
-    public authService:AuthService
+    public authService:AuthService,
+    public navService: NavService
     ) { }
   
 
@@ -39,6 +42,7 @@ export class AdminComponent implements OnInit,OnDestroy {
     this.UserID=this.browserStorageService.getLocalStorageItem('userId');
     this.UserEMailID=this.browserStorageService.getLocalStorageItem('emailId');
     this.UserRoles=JSON.parse(this.browserStorageService.getSessionStorageItem('UserRoleNames'));    
+   
     // if(!(this.userService.userRoles&& this.userService.userRoles.length>0)){
     //   this.getuserData().then((res)=>{
     //     console.log(this.userService.userRoles);
@@ -47,8 +51,11 @@ export class AdminComponent implements OnInit,OnDestroy {
     // }else{
     //   console.log(this.userService.userRoles);
     // }
-    console.log(this.userService.userRoles);
     
+    let JsonData=JSON.stringify(this.userService.navMenuItems);
+    var re = new RegExp('"Page":', 'g');
+    JsonData = JsonData.replace(re, '"SubMenu":');
+    this.navItems=JSON.parse(JsonData);
   }
   ngOnDestroy(): void {
     this.mediaSub.unsubscribe();
@@ -90,4 +97,9 @@ getuserData(){
 //       return false;
 //   }
 // }
+
+
+ngAfterViewInit() {
+  this.navService.appDrawer = this.appDrawer;
+}
 }

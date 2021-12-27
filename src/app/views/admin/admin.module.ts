@@ -48,8 +48,8 @@ const routes: Routes = [
     MatNativeDateModule,
     PartialviewsModule,
     DataFilterPipeModule,
-    FlexLayoutModule
-  ]
+    FlexLayoutModule,
+    ]
   
 })
 export class AdminModule { }

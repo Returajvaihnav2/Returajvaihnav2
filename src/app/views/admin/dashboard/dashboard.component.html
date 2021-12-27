@@ -1,111 +1,80 @@
 <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="start start" fxLayoutGap="20px" style="margin-left: 32px;">
     <ng-container>
-        <div fxFlex="0 1 calc(33.3% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%">
-            <div gdGap="32px" gdRows="auto auto auto" gdAreas.lt-md="1 | 2 | 3 | 4" gdRows.lt-md="auto auto auto auto">
-                <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="start start">
-                    <h3 class="center">TradeFAST</h3>
-                    <div fxFlex="0 1 calc(50%-0)" fxFlex.lt-md="0 1 calc(50%-0)" fxFlex.lt-sm="100%">
-                        <mat-card gdArea="1" class="box" (click)="(DashBoardRights.IsInbox) ? redirectToBlotter('MyTrades'):''" [ngClass]="{'box-card1 accent' :DashBoardRights?.IsInbox
+        <div fxFlex="33.3%" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%">
+            <h3 class="center">TradeFAST</h3>
+            <mat-card class="box" (click)="(DashBoardRights.IsInbox) ? redirectToBlotter('MyTrades'):''" [ngClass]="{'box-card1 accent' :DashBoardRights?.IsInbox
                 ,'box-card-disable':!(DashBoardRights?.IsInbox) ,'box-card-My':true}">
-                            <span class="count">{{ DashBoardRights.IsInbox ? DsTradeCount.MyTrades:0 }}</span>
-                            <span class="details">My Trades</span>
-                        </mat-card>
-                    </div>
-
-                    <div fxFlex="0 1 calc(50%-0)" fxFlex.lt-md="0 1 calc(50%-0)" fxFlex.lt-sm="100%">
-                        <mat-card gdArea="2" class="box" (click)="DashBoardRights.IsOutbox ? redirectToBlotter('TeamTrades'):''" [ngClass]="DashBoardRights.IsOutbox ? 'box-card7': 'box-card-disable'">
-                            <span class="count">   {{ DashBoardRights.IsOutbox ? DsTradeCount.TeamTrades:0 }}</span>
-                            <span class="details">New RFQ/Team Trades</span>
-                        </mat-card>
-                    </div>
-
-                    <div fxFlex="0 1 calc(50%-0)" fxFlex.lt-md="0 1 calc(50%-0)" fxFlex.lt-sm="100%">
-                        <mat-card gdArea="3" class="box" *ngIf="!DashBoardRights.IsDealType" (click)="DashBoardRights.IsTradeAccepted ? redirectToBlotter('Accepted'):''" [ngClass]="DashBoardRights?.IsTradeAccepted ? 'box-card7': 'box-card-disable'">
-                            <span class="count">  {{ DashBoardRights.IsTradeAccepted ? DsTradeCount.Accepted:0 }}</span>
-                            <span class="details">Accepted</span>
-                        </mat-card>
-                    </div>
-
-                    <div fxFlex="0 1 calc(50%-0)" fxFlex.lt-md="0 1 calc(50%-0)" fxFlex.lt-sm="100%">
-                        <mat-card gdArea="4" class="box" *ngIf="!DashBoardRights.IsDealType" (click)="DashBoardRights.IsExpireInTwoDays ? redirectToBlotter('ExpIn2'):''" [ngClass]="{'box-card warn' :DashBoardRights?.IsExpireInTwoDays
+                <span class="count">{{ DashBoardRights.IsInbox ? DsTradeCount.MyTrades:0 }}</span>
+                <span class="details">My Trades</span>
+            </mat-card>
+            <mat-card class="box" (click)="DashBoardRights.IsOutbox ? redirectToBlotter('TeamTrades'):''" [ngClass]="DashBoardRights.IsOutbox ? 'box-card7': 'box-card-disable'">
+                <span class="count">   {{ DashBoardRights.IsOutbox ? DsTradeCount.TeamTrades:0 }}</span>
+                <span class="details">New RFQ/Team Trades</span>
+            </mat-card>
+            <mat-card class="box" *ngIf="!DashBoardRights.IsDealType" (click)="DashBoardRights.IsTradeAccepted ? redirectToBlotter('Accepted'):''" [ngClass]="DashBoardRights?.IsTradeAccepted ? 'box-card7': 'box-card-disable'">
+                <span class="count">  {{ DashBoardRights.IsTradeAccepted ? DsTradeCount.Accepted:0 }}</span>
+                <span class="details">Accepted</span>
+            </mat-card>
+            <mat-card class="box" *ngIf="!DashBoardRights.IsDealType" (click)="DashBoardRights.IsExpireInTwoDays ? redirectToBlotter('ExpIn2'):''" [ngClass]="{'box-card warn' :DashBoardRights?.IsExpireInTwoDays
             ,'box-card-disable':!(DashBoardRights?.IsExpireInTwoDays) ,'box-card-ex':true}">
-                            <span class="count">  {{ DashBoardRights.IsExpireInTwoDays ?
+                <span class="count">  {{ DashBoardRights.IsExpireInTwoDays ?
                     DsTradeCount.ExpireInTwoDays:0 }}</span>
-                            <span class="details">Exp. in 2 Days</span>
-                        </mat-card>
-                    </div>
-                </div>
-            </div>
+                <span class="details">Exp. in 2 Days</span>
+            </mat-card>
         </div>
         <!-- <mat-divider vertical class="box-devider-hr"></mat-divider> -->
     </ng-container>
     <ng-container>
         <div fxFlex="0 1 calc(33.3% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%">
-            <div gdGap="32px" gdRows="auto auto auto" gdAreas.lt-md="1 | 2 | 3 | 4" gdRows.lt-md="auto auto auto auto">
-                <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="start start">
-                    <h3 class="center">DealFAST</h3>
-                    <div fxFlex="0 1 calc(50%-0)" fxFlex.lt-md="0 1 calc(50%-0)" fxFlex.lt-sm="100%">
-                        <mat-card gdArea="1" class="box" (click)="(DashBoardRights.IsMe) ? redirectToDraft('MyContract'):''" [ngClass]="{'box-card1 accent' :DashBoardRights?.IsMe
+            <h3 class="center">DealFAST</h3>
+            <mat-card gdArea="1" class="box" (click)="(DashBoardRights.IsMe) ? redirectToDraft('MyContract'):''" [ngClass]="{'box-card1 accent' :DashBoardRights?.IsMe
                 ,'box-card-disable':!(DashBoardRights?.IsMe) ,'box-card-My':true}">
-                            <span class="count">{{my}}</span>
-                            <span class="details">My Contracts</span>
-                        </mat-card>
-                    </div>
-                    <div fxFlex="0 1 calc(50%-0)" fxFlex.lt-md="0 1 calc(50%-0)" fxFlex.lt-sm="100%">
-                        <mat-card gdArea="2" class="box" (click)="(DashBoardRights.IsMe) ? redirectToDraft('Counterparty'):''" [ngClass]="DashBoardRights.IsCounterParty ? 'box-card1': 'box-card-disable'">
-                            <span class="count">{{ DashBoardRights?.IsCounterParty ? Counterparty : 0}}</span>
-                            <span class="details">Counterparty</span>
-                        </mat-card>
-                    </div>
-                    <div fxFlex="0 1 calc(50%-0)" fxFlex.lt-md="0 1 calc(50%-0)" fxFlex.lt-sm="100%">
-                        <mat-card gdArea="3" class="box" *ngIf="!DashBoardRights.IsDealType" (click)="(minimumRolesIndex === 1 || minimumRolesIndex === 2 || minimumRolesIndex === 3)? redirectToSigned():''" [ngClass]="DashBoardRights.IsSigned ? 'box-card3': 'box-card-disable'">
-                            <span class="count"> {{DashBoardRights?.IsSigned ?
+                <span class="count">{{my}}</span>
+                <span class="details">My Contracts</span>
+            </mat-card>
+            <mat-card gdArea="2" class="box" (click)="(DashBoardRights.IsMe) ? redirectToDraft('Counterparty'):''" [ngClass]="DashBoardRights.IsCounterParty ? 'box-card1': 'box-card-disable'">
+                <span class="count">{{ DashBoardRights?.IsCounterParty ? Counterparty : 0}}</span>
+                <span class="details">Counterparty</span>
+            </mat-card>
+            <mat-card gdArea="3" class="box" *ngIf="!DashBoardRights.IsDealType" (click)="(minimumRolesIndex === 1 || minimumRolesIndex === 2 || minimumRolesIndex === 3)? redirectToSigned():''" [ngClass]="DashBoardRights.IsSigned ? 'box-card3': 'box-card-disable'">
+                <span class="count"> {{DashBoardRights?.IsSigned ?
                         signed?signed:0 : 0}}</span>
-                            <span class="details">Signed</span>
-                        </mat-card>
-                    </div>
-                    <div fxFlex="0 1 calc(50%-0)" fxFlex.lt-md="0 1 calc(50%-0)" fxFlex.lt-sm="100%">
-                        <mat-card gdArea="4" class="box" *ngIf="!DashBoardRights.IsDealType" [ngClass]="{'box-card3 warn' :true,'box-card-disable':false ,'box-card-ex':true}">
-                            <div (click)="(minimumRolesIndex === 1 || minimumRolesIndex === 2 || minimumRolesIndex === 3)? redirectToListing('3m', 'Exp. in 3 Months'):''">
-                                <span class="count">  {{ ExpireInValue }}</span>
-                                <span class="details">Exp. in {{changeExpireInValue.Name}}</span>
-                            </div>
-                            <mat-icon class="select-icon" (click)="click()">open_in_new</mat-icon>
-                            <mat-select #mySelect class="card-drp" (selectionChange)="changeExpireIn($event)">
-                                <mat-select-trigger>
-                                    <mat-icon>open_in_new</mat-icon>
-                                </mat-select-trigger>
-                                <mat-option *ngFor="let ET of ExpireType" [value]="ET.ID">
-                                    {{ ET.Name }}
-                                </mat-option>
-
-                            </mat-select>
-                        </mat-card>
-                    </div>
+                <span class="details">Signed</span>
+            </mat-card>
+            <mat-card gdArea="4" class="box" *ngIf="!DashBoardRights.IsDealType" [ngClass]="{'box-card3 warn' :true,'box-card-disable':false ,'box-card-ex':true}">
+                <div (click)="(minimumRolesIndex === 1 || minimumRolesIndex === 2 || minimumRolesIndex === 3)? redirectToListing('3m', 'Exp. in 3 Months'):''">
+                    <span class="count">  {{ ExpireInValue }}</span>
+                    <span class="details">Exp. in {{changeExpireInValue.Name}}</span>
                 </div>
-            </div>
+                <mat-icon class="select-icon" (click)="click()">open_in_new</mat-icon>
+                <mat-select #mySelect class="card-drp" (selectionChange)="changeExpireIn($event)">
+                    <mat-select-trigger>
+                        <mat-icon>open_in_new</mat-icon>
+                    </mat-select-trigger>
+                    <mat-option *ngFor="let ET of ExpireType" [value]="ET.ID">
+                        {{ ET.Name }}
+                    </mat-option>
+
+                </mat-select>
+            </mat-card>
         </div>
         <!-- <mat-divider vertical class="box-devider-hr"></mat-divider> -->
     </ng-container>
     <ng-container>
         <div fxFlex="0 1 calc(33.3% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%">
-            <div gdGap="32px" gdRows="auto auto auto" gdAreas.lt-md="header | side | content | footer" gdRows.lt-md="auto auto auto auto">
-                <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="start start">
-                    <h3 class="center">TapFAST</h3>
-                    <div fxFlex="0 1 calc(50%-0)" fxFlex.lt-md="0 1 calc(50%-0)" fxFlex.lt-sm="100%" *ngFor="let tap of TapData;let irow=index">
-                        <mat-card class="box" routerLinkActive="router-link-active" (click)="DashBoardRights?.IsTapFast ? redirectToPage(tap.ID): ''" [ngClass]="{'box-card1' :DashBoardRights?.IsTapFast
+            <h3 class="center">TapFAST</h3>
+            <div *ngFor="let tap of TapData;let irow=index">
+                <mat-card class="box" routerLinkActive="router-link-active" (click)="DashBoardRights?.IsTapFast ? redirectToPage(tap.ID): ''" [ngClass]="{'box-card1' :DashBoardRights?.IsTapFast
                 ,'box-card-disable':!(DashBoardRights?.IsTapFast) ,'box-card-My accent':irow==0}">
-                            <div class="box-sidebar">
-                            </div>
-
-                            <span class="count">{{tap.Count }}</span>
-                            <span class="details">{{tap.Property }}</span>
-                        </mat-card>
+                    <div class="box-sidebar">
                     </div>
-                </div>
+                    <span class="count">{{tap.Count }}</span>
+                    <span class="details">{{tap.Property }}</span>
+                </mat-card>
             </div>
         </div>
     </ng-container>
+
 </div>
 
 <div class="DealoverView">

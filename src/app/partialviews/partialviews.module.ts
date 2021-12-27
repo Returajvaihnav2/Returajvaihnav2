@@ -8,6 +8,7 @@ import { SeeMoreComponent } from './see-more/see-more.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SideMenuComponent } from './side-menu/side-menu.component';
 import { SideSubMenuComponent } from './side-sub-menu/side-sub-menu.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 @NgModule({
@@ -16,8 +17,9 @@ import { SideSubMenuComponent } from './side-sub-menu/side-sub-menu.component';
     CommonModule,
     MaterialRefModule,
     DataFilterPipeModule,
-    ContextMenuModule.forRoot(),    
-  ],
+    ContextMenuModule.forRoot(),
+    FlexLayoutModule
+    ],
   exports:[DealOverViewComponent,SeeMoreComponent,SideMenuComponent, SideSubMenuComponent]
 })
 export class PartialviewsModule { }

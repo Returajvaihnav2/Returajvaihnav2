@@ -29,11 +29,15 @@
                     border-left: 2px solid mat-color($accent) !important;
                 }
             }
-            // &:hover {
+            // .mat-nav-list .mat-list-item &:hover {
             //     background: $yellow-color-hover !important;
             //     color: mat-color($accent) !important;
             //     border-left: 2px solid mat-color($accent) !important;
             // }
+            .mat-list-base .mat-list-item,
+            .mat-list-base .mat-list-option {
+                width: unset;
+            }
         }
     }
 }

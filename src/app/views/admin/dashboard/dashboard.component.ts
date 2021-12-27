@@ -481,6 +481,8 @@ export class DashboardComponent implements OnInit {
 
 
   openModal(template: TemplateRef<any>, type: any) {
+    this.apiService.isSpinner = false;
+    this.spinner.displaySpinner(true);
     if (type === 'DealOverviewDeails') {
      // this.showModalPopup(template, 'modal-xl');
    return this.openDialogWithTemplateRef(template);

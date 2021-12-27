@@ -68,7 +68,7 @@ ngOnInit(): void {
     this.hostService.getLoginLogo().then((data) => {
     
       this.logo = data;
-     this.logo ="../../../../../assets/img/viewer-logo.png";
+   //  this.logo ="../../../../../assets/img/viewer-logo.png";
     });
   
     this.hostService.getBackground().then((data) => {

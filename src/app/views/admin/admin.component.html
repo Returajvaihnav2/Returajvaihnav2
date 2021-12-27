@@ -1,8 +1,8 @@
 <mat-toolbar>
-    <button mat-icon-button class="example-icon" (click)="ExpandMenu()" aria-label="Example icon-button with menu icon">
+    <button mat-icon-button class="example-icon" (click)="navService.toggleNav()" aria-label="Example icon-button with menu icon">
       <mat-icon>menu</mat-icon>
     </button>
-    <span><img src="assets\img\Tritex.ico" alt="" /></span>
+    <span><a [routerLink]="['/admin/dashboard']"><img src="assets\img\Tritex.png" alt="" /></a></span>
     <span class="example-spacer"></span>
 
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
@@ -18,24 +18,9 @@
 </mat-toolbar>
 
 <mat-drawer-container class="example-container mat-typography" [ngClass]="isExpanded?'MaxMenu':'MinMenu'" autosize>
-    <mat-drawer #drawer mode="side" disableClose="true" opened="true">
+    <mat-drawer #appDrawer mode="side" [opened]="navService.initailvalue">
         <mat-nav-list>
-            <mat-list-item>
-                <mat-icon mat-list-icon>dashboard</mat-icon>
-                <h4 mat-line *ngIf="isExpanded">dashboard</h4>
-            </mat-list-item>
-            <mat-list-item>
-                <mat-icon mat-list-icon>pie_chart</mat-icon>
-                <h4 mat-line *ngIf="isExpanded">AnalyseFast</h4>
-            </mat-list-item>
-            <mat-list-item>
-                <mat-icon mat-list-icon>layers</mat-icon>
-                <h4 mat-line *ngIf="isExpanded">DealFast</h4>
-            </mat-list-item>
-            <mat-list-item>
-                <mat-icon mat-list-icon>compare_arrows</mat-icon>
-                <h4 mat-line *ngIf="isExpanded">BCE</h4>
-            </mat-list-item>
+            <app-side-menu *ngFor="let item of navItems" [item]="item"></app-side-menu>
         </mat-nav-list>
     </mat-drawer>
     <div class="example-sidenav-content">

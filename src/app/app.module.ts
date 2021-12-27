@@ -22,6 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PagenotfoundComponent } from './views/pagenotfound/pagenotfound.component';
 import { AuthGuardService } from './services/authentication/auth-guard.service';
 import { MaterialRefModule } from './material.module';
+import { NavService } from './services/menu/nav.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +53,8 @@ import { MaterialRefModule } from './material.module';
     AuthService,
     HostService,
     WINDOW_PROVIDERS,
-      AuthGuardService
+      AuthGuardService,
+      NavService
       ],
   bootstrap: [AppComponent]
 })

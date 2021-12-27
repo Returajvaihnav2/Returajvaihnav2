@@ -11,7 +11,7 @@ import { SpinnerService } from 'src/app/services/spinner.service';
 import { ApiService } from 'src/app/services/api.service';
 import { ListExcelService } from 'src/app/services/export-file/list_excel.service';
 import { BrowserStorageService } from 'src/app/utility/browser-storage.service';
-
+import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 @Component({
   selector: 'app-deal-over-view',
   templateUrl: './deal-over-view.component.html',
@@ -396,5 +396,7 @@ export class DealOverViewComponent implements OnInit {
 
 close(){
   this.modalRef.close();
+  this.apiService.isSpinner = true;
+  this.spinner.displaySpinner(false);
 }
 }

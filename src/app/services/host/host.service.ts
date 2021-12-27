@@ -40,7 +40,7 @@ export class HostService {
         this.logoPromise = this.getLogo();
       }
       this.logoPromise.then((data: any) => {
-        return resolve(data.login_logo)
+        return resolve(data.jpg)
       }).catch((err) => {
         return reject(err);
       });
