@@ -9,7 +9,7 @@
         background-color: mat-color($primary) !important;
         color: mat-color($primary, 50) !important;
         mat-list-item {
-            .mat-list-item-content {
+            &.mat-list-item-content {
                 flex-direction: row !important;
                 align-items: center !important;
                 box-sizing: border-box !important;
@@ -17,6 +17,7 @@
                 position: relative !important;
                 height: inherit !important;
                 padding: 10px 8px !important;
+                width: auto !important;
                 mat-icon {
                     left: 16.8%;
                     right: 16.8%;
@@ -29,15 +30,18 @@
                     border-left: 2px solid mat-color($accent) !important;
                 }
             }
-            // .mat-nav-list .mat-list-item &:hover {
-            //     background: $yellow-color-hover !important;
-            //     color: mat-color($accent) !important;
-            //     border-left: 2px solid mat-color($accent) !important;
-            // }
-            .mat-list-base .mat-list-item,
-            .mat-list-base .mat-list-option {
+            &.mat-list-base .mat-list-item,
+            &.mat-list-base .mat-list-option {
                 width: unset;
             }
         }
+        .mat-list-base .mat-list-item,
+        .mat-list-base .mat-list-option {
+            width: unset !important;
+        }
     }
+    // .mat-list-base .mat-list-item,
+    // .mat-list-base .mat-list-option {
+    //     width: unset !important;
+    // }
 }

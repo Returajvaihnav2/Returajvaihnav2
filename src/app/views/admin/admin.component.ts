@@ -8,6 +8,8 @@ import{MediaObserver,MediaChange } from '@angular/flex-layout'
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/authentication/auth.service';
 import { NavService } from 'src/app/services/menu/nav.service';
+import { env } from 'process';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -24,6 +26,7 @@ export class AdminComponent implements OnInit,OnDestroy {
   mediaSub:Subscription;
   deviceSx:boolean;
   navItems:any=[];
+  UserProlilePic=environment.url;
   constructor(public utilityProvider:UtilityProvider,
     public userService: UserService,
     public browserStorageService: BrowserStorageService,
@@ -56,6 +59,9 @@ export class AdminComponent implements OnInit,OnDestroy {
     var re = new RegExp('"Page":', 'g');
     JsonData = JsonData.replace(re, '"SubMenu":');
     this.navItems=JSON.parse(JsonData);
+    this.UserProlilePic=this.UserProlilePic+'/Files/UserPhotos/'+this.userService?.userInfo['userModel']?.UserPhotoFileName;
+    
+    console.log(this.userService.userInfo);
   }
   ngOnDestroy(): void {
     this.mediaSub.unsubscribe();

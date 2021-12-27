@@ -54,21 +54,4 @@ export class SideMenuComponent implements OnInit {
 
   }
 
-  
-  // onItemSelected(item: any) {
-  //   const isChild=(item.SubMenu && item.SubMenu.length || item.Page && item.Page.length);
-  //   if (!isChild) {
-  //     this.router.navigate([item.url]);
-  //     this.navService.closeNav();
-  //   }
-  //   if (item.SubMenu && item.SubMenu.length) {
-  //     this.expanded = !this.expanded;
-  //   }
-  //   if (item.Page && item.Page.length) {
-  //     this.expanded = !this.expanded;
-  //   }
-
-
-  // }
-
 }

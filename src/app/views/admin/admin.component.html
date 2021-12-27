@@ -10,7 +10,9 @@
       </button>
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" [matMenuTriggerFor]="ProfileMenu">
         <mat-icon class="CustomIcon">
-         <span>{{utilityProvider.getShortName(UserName)}}</span>
+         <span *ngIf="!(userService?.userInfo?.userModel?.UserPhotoFileName)">{{utilityProvider.getShortName(UserName)}}</span>
+         <img class="CustomIcon" *ngIf="(userService?.userInfo?.userModel?.UserPhotoFileName)"
+         [src]="UserProlilePic"/>
         </mat-icon>
       </button>
 
